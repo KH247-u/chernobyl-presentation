@@ -1,0 +1,1320 @@
+/* ==========================================================================
+   Design System Tokens (Projector-Optimized Theme)
+   ========================================================================== */
+:root {
+    /* Colors (High Contrast, Projector Optimized) */
+    --bg-dark: #121212;
+    --bg-panel: #1A1A1A;
+    --accent-yellow: #FFD54F; /* Safety Yellow */
+    --accent-cyan: #26C6DA;   /* Teal/Cyan */
+    --accent-red: #E53935;    /* Red Warning */
+    --accent-green: #43A047;  /* Success Green */
+    
+    --text-primary: #FFFFFF;
+    --text-secondary: #F5F5F5; /* Very Light Gray (strictly no medium/dark gray) */
+    
+    /* Typography */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    
+    /* Card / Glassmorphism */
+    --glass-bg: rgba(26, 26, 26, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    /* Transitions */
+    --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-mid: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-fast: 0.2s ease;
+}
+
+/* ==========================================================================
+   Reset and Core Layouts
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    overflow: hidden;
+}
+
+#presentation-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--bg-dark);
+}
+
+/* ==========================================================================
+   Header / Top Navigation Bar
+   ========================================================================== */
+#top-bar {
+    height: 70px;
+    background: rgba(18, 18, 18, 0.9);
+    border-bottom: 2px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 10;
+}
+
+#top-bar .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.radiation-icon {
+    font-size: 2rem;
+    color: var(--accent-yellow);
+    animation: pulse-slow 3s infinite ease-in-out;
+}
+
+.course-tag {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+}
+
+#slide-progress-container {
+    flex-grow: 1;
+    max-width: 50%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin: 0 40px;
+    overflow: hidden;
+}
+
+#slide-progress-bar {
+    height: 100%;
+    width: 6.67%; /* 1 of 15 starts here */
+    background: linear-gradient(90deg, var(--accent-yellow), var(--accent-red));
+    border-radius: 3px;
+    transition: width var(--transition-mid);
+}
+
+.slide-counter {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--accent-yellow);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+/* ==========================================================================
+   Slides Wrapper and Slides
+   ========================================================================== */
+#slides-wrapper {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    height: calc(100vh - 150px); /* Account for header and footer */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 60px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+/* Slide Content Layout */
+.slide-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.slide-heading {
+    font-family: var(--font-heading);
+    font-size: 2.5rem; /* ~40pt */
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 6px solid var(--accent-yellow);
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-primary);
+}
+
+.heading-num {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+/* Grids */
+.grid-2col {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: center;
+    height: calc(100% - 80px);
+}
+
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* ==========================================================================
+   Typography & Bullet Points (Projector Optimized)
+   ========================================================================== */
+.bullets-container ul {
+    list-style: none;
+}
+
+.bullets-container li {
+    font-size: 1.6rem; /* >25pt, perfectly readable */
+    line-height: 1.6;
+    margin-bottom: 22px;
+    position: relative;
+    padding-left: 40px;
+    color: var(--text-secondary);
+}
+
+.bullets-container li::before {
+    content: "•";
+    position: absolute;
+    left: 10px;
+    color: var(--accent-yellow);
+    font-size: 2.5rem;
+    line-height: 1;
+    top: -5px;
+}
+
+.highlight-yellow { color: var(--accent-yellow); font-weight: 700; }
+.highlight-cyan { color: var(--accent-cyan); font-weight: 700; }
+.highlight-red { color: var(--accent-red); font-weight: 700; }
+.highlight-green { color: var(--accent-green); font-weight: 700; }
+
+strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Panels and Cards (Glassmorphism)
+   ========================================================================== */
+.glass-panel {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.img-panel {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    height: 100%;
+    min-height: 350px;
+    background: var(--bg-panel);
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(18, 18, 18, 0.85);
+    border-top: 1px solid var(--glass-border);
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    color: var(--accent-yellow);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Slide 1: Title Layout
+   ========================================================================== */
+.title-slide-layout {
+    align-items: center;
+    text-align: center;
+}
+
+.title-badge {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--accent-yellow);
+    background: rgba(255, 213, 79, 0.1);
+    border: 1px solid var(--accent-yellow);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 4rem; /* ~64pt */
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.team-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.team-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: var(--accent-cyan);
+    margin-bottom: 20px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.member {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 25px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.member:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-yellow);
+    background: rgba(255, 213, 79, 0.05);
+}
+
+/* ==========================================================================
+   Slide 2: Interactive Fission Flow Diagram
+   ========================================================================== */
+.fission-diagram-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.fission-diagram-wrapper h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--accent-cyan);
+    margin-bottom: 30px;
+}
+
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.flow-step {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: all var(--transition-mid);
+}
+
+.flow-step.active {
+    background: rgba(38, 198, 218, 0.1);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(38, 198, 218, 0.3);
+    transform: scale(1.05);
+}
+
+.flow-step.active#step-fission {
+    background: rgba(255, 213, 79, 0.1);
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 20px rgba(255, 213, 79, 0.3);
+}
+
+.flow-step.active#step-steam {
+    background: rgba(229, 57, 53, 0.1);
+    border-color: var(--accent-red);
+    box-shadow: 0 0 20px rgba(229, 57, 53, 0.3);
+}
+
+.flow-step.active#step-electricity {
+    background: rgba(67, 160, 71, 0.1);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 20px rgba(67, 160, 71, 0.3);
+}
+
+.step-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.step-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.flow-arrow {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 0 10px;
+}
+
+.interactive-caption {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Slide 4: Cause-and-Effect Flowchart
+   ========================================================================== */
+.flowchart-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.flowchart-node {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    transition: transform var(--transition-mid);
+}
+
+.flowchart-node:hover {
+    transform: translateX(10px);
+}
+
+.danger-border {
+    border-left: 5px solid var(--accent-yellow);
+}
+
+.critical-border {
+    border-left: 5px solid var(--accent-red);
+    background: rgba(229, 57, 53, 0.03);
+}
+
+.node-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.node-desc {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.flowchart-arrow {
+    color: var(--accent-cyan);
+    font-size: 1.5rem;
+    animation: bounce-y 2s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Slide 5 & 11: Comparison Card / Box
+   ========================================================================== */
+.comparison-card {
+    background: var(--bg-panel);
+    border-radius: 16px;
+    border: 2px solid var(--glass-border);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.comp-header-red {
+    background: var(--accent-red);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.3rem;
+    padding: 18px 25px;
+    letter-spacing: 2px;
+}
+
+.comp-header-green {
+    background: var(--accent-green);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.3rem;
+    padding: 18px 25px;
+    letter-spacing: 2px;
+}
+
+.comp-body {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    height: 100%;
+}
+
+.comp-body p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.comp-divider {
+    border: 0;
+    height: 1px;
+    background: var(--glass-border);
+}
+
+/* ==========================================================================
+   Slide 6: Emergency Response Layout
+   ========================================================================== */
+.response-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+
+.alert-box-red {
+    background: rgba(229, 57, 53, 0.1);
+    border: 2px solid var(--accent-red);
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.alert-icon {
+    font-size: 2.5rem;
+    color: var(--accent-red);
+    line-height: 1;
+}
+
+.alert-text h4 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.alert-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.response-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.response-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-primary);
+}
+
+.response-badge .icon {
+    font-size: 1.6rem;
+    color: var(--accent-yellow);
+}
+
+/* ==========================================================================
+   Slide 7: Evacuation Timeline
+   ========================================================================== */
+.evacuation-timeline {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    position: relative;
+    padding-left: 30px;
+}
+
+.evacuation-timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 15px;
+    bottom: 15px;
+    width: 4px;
+    background: var(--glass-border);
+}
+
+.timeline-step {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-step::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 4px solid var(--accent-yellow);
+}
+
+.timeline-step:first-child::before {
+    border-color: var(--accent-red);
+}
+
+.time {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent-cyan);
+    margin-bottom: 6px;
+}
+
+.event {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Slide 8: Before/After Slider Container
+   ========================================================================== */
+.slider-comparison-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slider-comparison-container h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--accent-cyan);
+    margin-bottom: 20px;
+}
+
+.slider-frame {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+.slide-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.label-top-left {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(229, 57, 53, 0.85);
+    color: #FFF;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    z-index: 5;
+}
+
+.label-top-right {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(67, 160, 71, 0.85);
+    color: #FFF;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    z-index: 5;
+}
+
+.img-b {
+    width: 50%; /* Initial split width */
+    overflow: hidden;
+    z-index: 2;
+}
+
+.img-b img {
+    width: 500px; /* Must match the max-width of slider-frame to align background */
+    max-width: none;
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-yellow);
+    z-index: 6;
+    cursor: ew-resize;
+    transform: translateX(-50%);
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--accent-yellow);
+    color: #121212;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    user-select: none;
+}
+
+/* ==========================================================================
+   Slide 9: Health Infographic Layout
+   ========================================================================== */
+.health-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 20px;
+    height: 100%;
+}
+
+.health-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 5px solid var(--glass-border);
+    padding: 20px;
+    border-radius: 0 12px 12px 0;
+    transition: background var(--transition-fast);
+}
+
+.health-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.health-card:nth-child(1) { border-left-color: var(--accent-red); }
+.health-card:nth-child(2) { border-left-color: var(--accent-yellow); }
+.health-card:nth-child(3) { border-left-color: var(--accent-cyan); }
+
+.hc-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.health-card p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Slide 10: Environmental Metric Layout
+   ========================================================================== */
+.env-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 20px;
+    height: 100%;
+}
+
+.env-metric-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.metric-icon {
+    font-size: 2.8rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-val {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.metric-lbl {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Slide 12: Comparison Bar Chart
+   ========================================================================== */
+.chart-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-center h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--accent-cyan);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.chart-bar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bar-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.bar {
+    height: 32px;
+    border-radius: 6px;
+    transition: width var(--transition-slow);
+    width: 0; /* Animated on slide activation */
+}
+
+.bar-unscear {
+    background: var(--accent-green);
+}
+.bar-who {
+    background: var(--accent-yellow);
+}
+.bar-ucs {
+    background: var(--accent-red);
+}
+
+/* Specific animated widths */
+.slide.active .bar-unscear { width: 4%; }
+.slide.active .bar-who { width: 35%; }
+.slide.active .bar-ucs { width: 90%; }
+
+.bar-val {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.chart-disclaimer {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 15px;
+}
+
+/* ==========================================================================
+   Slide 13: Lessons Grid
+   ========================================================================== */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.lesson-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+}
+
+.lesson-card:hover {
+    border-color: var(--accent-yellow);
+}
+
+.lesson-num {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 3.5rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: rgba(255, 255, 255, 0.05);
+    line-height: 1;
+}
+
+.lesson-card h4 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin-bottom: 10px;
+}
+
+.lesson-card p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Slide 14: Conclusion Panels
+   ========================================================================== */
+.conclusion-panels {
+    margin-bottom: 40px;
+}
+
+.concl-card {
+    text-align: center;
+    padding: 35px 20px;
+    transition: transform var(--transition-fast);
+}
+
+.concl-card:hover {
+    transform: translateY(-5px);
+}
+
+.c-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.concl-card h4 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.concl-card p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.quote-box {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-left: 5px solid var(--accent-yellow);
+    background: rgba(255, 213, 79, 0.03);
+    padding: 25px 40px;
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Slide 15: References
+   ========================================================================== */
+.references-panel {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.references-panel h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--accent-yellow);
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.references-panel ul {
+    list-style: none;
+}
+
+.references-panel li {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    position: relative;
+    padding-left: 30px;
+    color: var(--text-secondary);
+}
+
+.references-panel li::before {
+    content: "■";
+    position: absolute;
+    left: 5px;
+    color: var(--accent-cyan);
+    font-size: 1rem;
+    top: 4px;
+}
+
+/* ==========================================================================
+   Navigation Controls (Footer)
+   ========================================================================== */
+#nav-controls {
+    height: 80px;
+    background: rgba(18, 18, 18, 0.95);
+    border-top: 2px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 10;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    letter-spacing: 1px;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+}
+
+.nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: var(--glass-border);
+    color: var(--text-primary);
+}
+
+.highlight-btn {
+    background: rgba(255, 213, 79, 0.1);
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+}
+
+.highlight-btn:hover {
+    background: var(--accent-yellow);
+    color: #121212;
+}
+
+#slide-dots {
+    display: flex;
+    gap: 12px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.dot.active {
+    background: var(--accent-yellow);
+    transform: scale(1.3);
+}
+
+/* ==========================================================================
+   Speaker Notes Panel Drawer
+   ========================================================================== */
+#speaker-notes-drawer {
+    position: absolute;
+    top: 70px; /* Align below top bar */
+    right: 0;
+    width: 450px;
+    height: calc(100vh - 150px);
+    background: rgba(26, 26, 26, 0.98);
+    border-left: 2px solid var(--glass-border);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-mid);
+}
+
+#speaker-notes-drawer.closed {
+    transform: translateX(100%);
+}
+
+.notes-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notes-header h3 {
+    font-family: var(--font-heading);
+    color: var(--accent-yellow);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+#close-notes-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#close-notes-btn:hover {
+    color: var(--accent-red);
+}
+
+#notes-body {
+    padding: 30px;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+#notes-body strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--accent-cyan);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+#notes-body ul {
+    list-style: none;
+}
+
+#notes-body li {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+}
+
+#notes-body li::before {
+    content: "▫";
+    position: absolute;
+    left: 5px;
+    color: var(--accent-yellow);
+    font-weight: bold;
+}
+
+.notes-footer {
+    padding: 15px 25px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.95rem;
+    color: var(--accent-cyan);
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+kbd {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Keyframe Animations & Transition Utilities
+   ========================================================================== */
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); color: var(--accent-red); }
+}
+
+@keyframes bounce-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* Custom fade & slide triggers on active slides */
+.slide.active .animate-fade-in {
+    animation: fade-in 1s forwards var(--transition-mid);
+}
+
+.slide.active .animate-slide-up {
+    animation: slide-up 1s forwards var(--transition-mid);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Default state for elements before slide is active */
+.animate-fade-in, .animate-slide-up {
+    opacity: 0;
+}
