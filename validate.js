@@ -82,6 +82,13 @@ if (styleContent.includes('overflow: hidden') || styleContent.includes('overflow
     warnings.push(`Page overflow is not set to hidden in style.css. Ensure scrolling is disabled.`);
 }
 
+// C. Validate Custom Cursor Sizing and Glow
+if (styleContent.includes('custom-cursor-dot') && styleContent.includes('custom-cursor-ring') && styleContent.includes('cursor-ripple')) {
+    console.log(`[OK] Custom cursor styles and click ripples exist in CSS.`);
+} else {
+    errors.push(`Requirement failure: Custom cursor CSS classes are missing in style.css.`);
+}
+
 // 4. Validate app.js
 const appContent = fs.readFileSync(appJsPath, 'utf8');
 if (appContent.includes('resizeCanvas') && appContent.includes('Math.min(scaleX, scaleY)')) {
@@ -96,6 +103,12 @@ if (appContent.includes('requestFullscreen') && (appContent.includes('"F"') || a
     errors.push(`Requirement failure: Fullscreen toggle hotkey bindings are missing in app.js.`);
 }
 
+if (appContent.includes('custom-cursor-dot') && appContent.includes('updateCursorPositions') && appContent.includes('ripple')) {
+    console.log(`[OK] Custom cursor coordinate easing loop and click ripples are active in JS.`);
+} else {
+    errors.push(`Requirement failure: Custom cursor animations or events are missing in app.js.`);
+}
+
 // 5. Summarize validation
 console.log('\n=== VALIDATION SUMMARY ===');
 if (errors.length > 0) {
@@ -103,6 +116,6 @@ if (errors.length > 0) {
     errors.forEach(e => console.error(`  - ${e}`));
     process.exit(1);
 } else {
-    console.log('[PASSED] All Presentation Mode constraints verified successfully.');
+    console.log('[PASSED] All Presentation Mode & Custom Cursor constraints verified successfully.');
     process.exit(0);
 }

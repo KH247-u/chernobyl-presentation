@@ -1301,3 +1301,112 @@ strong {
         transform: translateY(0);
     }
 }
+
+/* ==========================================================================
+   Premium Custom Cursor Animation (Desktop-Only Fallback)
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+    /* Hide native system cursor inside canvas context */
+    body, 
+    a, 
+    button, 
+    [role="button"], 
+    .flow-step, 
+    .slider-handle, 
+    .nav-btn, 
+    .team-profile-card, 
+    .lesson-card, 
+    .concl-card, 
+    .health-card, 
+    .env-metric-card, 
+    .comparison-card, 
+    #fullscreen-btn, 
+    #slider-bar {
+        cursor: none !important;
+    }
+
+    .custom-cursor-dot {
+        width: 12px;
+        height: 12px;
+        background-color: var(--accent-yellow);
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate3d(-50%, -50%, 0);
+        pointer-events: none;
+        z-index: 9999;
+        box-shadow: 0 0 10px var(--accent-yellow);
+        transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        display: none; /* Injected and shown dynamically inside canvas */
+    }
+
+    .custom-cursor-ring {
+        width: 38px;
+        height: 38px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate3d(-50%, -50%, 0);
+        pointer-events: none;
+        z-index: 9998;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+        display: none;
+    }
+
+    /* Hover expanded state */
+    .custom-cursor-dot.hovered {
+        width: 16px;
+        height: 16px;
+        background-color: var(--accent-cyan);
+        box-shadow: 0 0 15px var(--accent-cyan);
+    }
+
+    .custom-cursor-ring.hovered {
+        width: 50px;
+        height: 50px;
+        border-color: var(--accent-cyan);
+        background-color: rgba(38, 198, 218, 0.08);
+        animation: cursor-pulse-active 1.5s infinite ease-in-out;
+    }
+
+    /* Click ripple effect */
+    .cursor-ripple {
+        position: absolute;
+        border: 2px solid var(--accent-yellow);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9997;
+        transform: translate3d(-50%, -50%, 0);
+        animation: ripple-burst 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+}
+
+/* Animations for Custom Cursor */
+@keyframes cursor-pulse-active {
+    0%, 100% {
+        transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-50%, -50%, 0) scale(1.1);
+    }
+}
+
+@keyframes ripple-burst {
+    0% {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+        border-color: var(--accent-yellow);
+    }
+    100% {
+        width: 90px;
+        height: 90px;
+        opacity: 0;
+        border-color: var(--accent-cyan);
+    }
+}
+

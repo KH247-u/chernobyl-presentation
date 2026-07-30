@@ -257,6 +257,127 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
+    // Custom Cursor Animation (Desktop-Only present mode)
+    // ==========================================================================
+    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (isDesktop && canvas) {
+        // Dynamically inject custom cursor elements inside slide canvas wrapper
+        const dot = document.createElement("div");
+        const ring = document.createElement("div");
+        dot.classList.add("custom-cursor-dot");
+        ring.classList.add("custom-cursor-ring");
+        canvas.appendChild(dot);
+        canvas.appendChild(ring);
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let ringX = 0;
+        let ringY = 0;
+        
+        let isInsideCanvas = false;
+        let firstMove = true;
+
+        // Easing interpolation loop
+        function updateCursorPositions() {
+            if (isInsideCanvas) {
+                const dotEase = 0.25;
+                const ringEase = 0.12;
+
+                cursorX += (mouseX - cursorX) * dotEase;
+                cursorY += (mouseY - cursorY) * dotEase;
+
+                ringX += (cursorX - ringX) * ringEase;
+                ringY += (cursorY - ringY) * ringEase;
+
+                // Move dot
+                dot.style.left = `${cursorX}px`;
+                dot.style.top = `${cursorY}px`;
+
+                // Move trailing ring
+                ring.style.left = `${ringX}px`;
+                ring.style.top = `${ringY}px`;
+            }
+            requestAnimationFrame(updateCursorPositions);
+        }
+        requestAnimationFrame(updateCursorPositions);
+
+        // Track relative coordinates considering canvas scaling
+        document.addEventListener("mousemove", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const canvasScale = rect.width / canvas.offsetWidth;
+            
+            const relativeX = (e.clientX - rect.left) / canvasScale;
+            const relativeY = (e.clientY - rect.top) / canvasScale;
+
+            if (relativeX >= 0 && relativeX <= canvas.offsetWidth && relativeY >= 0 && relativeY <= canvas.offsetHeight) {
+                mouseX = relativeX;
+                mouseY = relativeY;
+                
+                if (firstMove) {
+                    cursorX = relativeX;
+                    cursorY = relativeY;
+                    ringX = relativeX;
+                    ringY = relativeY;
+                    firstMove = false;
+                }
+
+                if (!isInsideCanvas) {
+                    isInsideCanvas = true;
+                    dot.style.display = "block";
+                    ring.style.display = "block";
+                }
+            } else {
+                if (isInsideCanvas) {
+                    isInsideCanvas = false;
+                    dot.style.display = "none";
+                    ring.style.display = "none";
+                }
+            }
+        });
+
+        // Click Ripple Burst trigger
+        document.addEventListener("click", (e) => {
+            if (!isInsideCanvas) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const canvasScale = rect.width / canvas.offsetWidth;
+            const relativeX = (e.clientX - rect.left) / canvasScale;
+            const relativeY = (e.clientY - rect.top) / canvasScale;
+
+            const ripple = document.createElement("div");
+            ripple.classList.add("cursor-ripple");
+            ripple.style.left = `${relativeX}px`;
+            ripple.style.top = `${relativeY}px`;
+            canvas.appendChild(ripple);
+
+            // Clean up element after burst animation completes
+            setTimeout(() => {
+                ripple.remove();
+            }, 500);
+        });
+
+        // Hover element detection (dynamic event delegation)
+        const interactiveSelectors = 'a, button, [role="button"], .flow-step, .slider-handle, .nav-btn, .team-profile-card, .lesson-card, .concl-card, .health-card, .env-metric-card, .comparison-card, #slider-bar';
+
+        document.addEventListener("mouseover", (e) => {
+            if (e.target && e.target.closest(interactiveSelectors)) {
+                dot.classList.add("hovered");
+                ring.classList.add("hovered");
+            }
+        });
+
+        document.addEventListener("mouseout", (e) => {
+            if (e.target && e.target.closest(interactiveSelectors)) {
+                dot.classList.remove("hovered");
+                ring.classList.remove("hovered");
+            }
+        });
+    }
+
+    // ==========================================================================
     // Initialization
     // ==========================================================================
     updateUI();
