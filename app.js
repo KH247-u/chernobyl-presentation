@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
     const slides = Array.from(document.querySelectorAll(".slide"));
-    const dotsContainer = document.getElementById("slide-dots");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
-    const notesToggleBtn = document.getElementById("notes-toggle-btn");
-    const speakerNotesDrawer = document.getElementById("speaker-notes-drawer");
-    const closeNotesBtn = document.getElementById("close-notes-btn");
-    const notesBody = document.getElementById("notes-body");
     const progressBar = document.getElementById("slide-progress-bar");
-    const currentSlideNumSpan = document.getElementById("current-slide-num");
+    const timelineIndicator = document.getElementById("timeline-indicator-active");
+    const headerSlideNumSpan = document.getElementById("current-slide-num");
+    const footerSlideNumSpan = document.getElementById("footer-slide-num");
     
     let currentSlideIndex = 0;
     const totalSlides = slides.length;
@@ -17,19 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // Slide Navigation Setup
     // ==========================================================================
-
-    // Initialize slide dots
-    function initDots() {
-        dotsContainer.innerHTML = "";
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement("div");
-            dot.classList.add("dot");
-            if (i === 0) dot.classList.add("active");
-            dot.title = `Slide ${i + 1}`;
-            dot.addEventListener("click", () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        }
-    }
 
     // Go to specific slide
     function goToSlide(index) {
@@ -46,62 +30,45 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Update progress controls
         updateUI();
-        
-        // Load speaker notes
-        loadSpeakerNotes();
     }
 
-    // Update UI elements (progress bar, buttons, dots, counter)
+    // Update UI elements (progress bar, timeline indicator, buttons, counters)
     function updateUI() {
-        // Update dots
-        const dots = Array.from(document.querySelectorAll(".dot"));
-        dots.forEach((dot, idx) => {
-            if (idx === currentSlideIndex) {
-                dot.classList.add("active");
-            } else {
-                dot.classList.remove("active");
-            }
-        });
-
         // Update buttons state
         prevBtn.disabled = currentSlideIndex === 0;
         nextBtn.disabled = currentSlideIndex === totalSlides - 1;
 
-        // Update counter
-        currentSlideNumSpan.textContent = currentSlideIndex + 1;
+        // Update counters
+        if (headerSlideNumSpan) headerSlideNumSpan.textContent = currentSlideIndex + 1;
+        if (footerSlideNumSpan) footerSlideNumSpan.textContent = currentSlideIndex + 1;
 
-        // Update progress bar
+        // Update top progress bar (linear width scaling)
         const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
-        progressBar.style.width = `${progressPercentage}%`;
-    }
-
-    // Load Speaker Notes for the active slide
-    function loadSpeakerNotes() {
-        const activeSlide = slides[currentSlideIndex];
-        const notesContent = activeSlide.querySelector(".speaker-notes-content");
-        
-        if (notesContent) {
-            notesBody.innerHTML = notesContent.innerHTML;
-        } else {
-            notesBody.innerHTML = "<p>No speaker notes available for this slide.</p>";
+        if (progressBar) {
+            progressBar.style.width = `${progressPercentage}%`;
         }
-    }
 
-    // Toggle Speaker Notes Drawer
-    function toggleSpeakerNotes() {
-        speakerNotesDrawer.classList.toggle("closed");
-    }
-
-    // Close Speaker Notes Drawer
-    function closeSpeakerNotes() {
-        speakerNotesDrawer.classList.add("closed");
+        // Update footer timeline indicator width
+        if (timelineIndicator) {
+            timelineIndicator.style.width = `${progressPercentage}%`;
+            
+            // Optionally shift colors along the timeline gradient
+            // Cyan -> Yellow -> Orange -> Red
+            let color = "var(--accent-cyan)";
+            if (progressPercentage > 75) {
+                color = "var(--accent-red)";
+            } else if (progressPercentage > 50) {
+                color = "var(--accent-orange)";
+            } else if (progressPercentage > 25) {
+                color = "var(--accent-yellow)";
+            }
+            timelineIndicator.style.backgroundColor = color;
+        }
     }
 
     // Event Listeners for Navigation Controls
     prevBtn.addEventListener("click", () => goToSlide(currentSlideIndex - 1));
     nextBtn.addEventListener("click", () => goToSlide(currentSlideIndex + 1));
-    notesToggleBtn.addEventListener("click", toggleSpeakerNotes);
-    closeNotesBtn.addEventListener("click", closeSpeakerNotes);
 
     // Keyboard Navigation
     document.addEventListener("keydown", (e) => {
@@ -117,13 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
             case " ": // Spacebar
                 e.preventDefault(); // Prevent page scrolling
                 goToSlide(currentSlideIndex + 1);
-                break;
-            case "n":
-            case "N":
-                toggleSpeakerNotes();
-                break;
-            case "Escape":
-                closeSpeakerNotes();
                 break;
         }
     });
@@ -195,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setSliderPosition(e.clientX);
         });
 
-        // Touch Drag Events (Mobile & Classroom Smartboards)
+        // Touch Drag Events
         sliderBar.addEventListener("touchstart", (e) => {
             isDragging = true;
         });
@@ -222,7 +182,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // Initialization
     // ==========================================================================
-    initDots();
     updateUI();
-    loadSpeakerNotes();
 });

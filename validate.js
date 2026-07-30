@@ -1,6 +1,6 @@
 /**
- * Presentation Verification Script
- * Validates index.html and style.css for project requirements.
+ * Redesign Verification Script
+ * Validates index.html and style.css for redesigned presentation constraints.
  */
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +12,7 @@ const appJsPath = path.join(__dirname, 'app.js');
 let errors = [];
 let warnings = [];
 
-console.log('=== CHERNOBYL DISASTER PRESENTATION APP VALIDATION ===\n');
+console.log('=== REDESIGNED CHERNOBYL PRESENTATION VALIDATION ===\n');
 
 // 1. Check file existence
 [indexHtmlPath, styleCssPath, appJsPath].forEach(file => {
@@ -24,8 +24,7 @@ console.log('=== CHERNOBYL DISASTER PRESENTATION APP VALIDATION ===\n');
 });
 
 if (errors.length > 0) {
-    console.error('\nCritical errors found during file checking. Aborting full validation.');
-    console.error(errors.join('\n'));
+    console.error('\nCritical errors found during file checking. Aborting.');
     process.exit(1);
 }
 
@@ -41,83 +40,82 @@ if (numSlides === 15) {
     errors.push(`Requirement failure: Presentation must have exactly 15 slides. Found: ${numSlides}`);
 }
 
-// B. Check titles & structure
-const requiredTitleKeywords = [
-    'CHERNOBYL DISASTER',
-    'What is a Nuclear Power Plant',
-    'About the Chernobyl Plant',
-    'Why the Disaster Happened',
-    'The Explosion',
-    'Immediate Emergency Response',
-    'Evacuation & Disaster Management',
-    'Containment Measures',
-    'Health Effects',
-    'Environmental Impact',
-    'Wildlife After the Disaster',
-    'Deaths and Long-Term Impact',
-    'Lessons Learned',
-    'Conclusion',
-    'References & Thank You'
-];
+// B. Check that speaker notes are COMPLETELY REMOVED
+const speakerNotesDrawerMatches = indexContent.match(/speaker-notes-drawer/gi);
+const speakerNotesClassMatches = indexContent.match(/class="speaker-notes-content"/gi);
+const speakerNotesBtnMatches = indexContent.match(/notes-toggle-btn/gi);
 
-requiredTitleKeywords.forEach((title, idx) => {
-    // Escape regex chars
-    const escapedTitle = title.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex = new RegExp(escapedTitle, 'i');
-    if (regex.test(indexContent)) {
-        console.log(`[OK] Found slide outline theme: "${title}"`);
-    } else {
-        warnings.push(`Possible missing slide theme: "${title}". Make sure slide content covers this topic.`);
-    }
-});
-
-// C. Verify all slides have speaker notes
-const speakerNotesMatches = indexContent.match(/class="speaker-notes-content"/gi);
-const numSpeakerNotes = speakerNotesMatches ? speakerNotesMatches.length : 0;
-if (numSpeakerNotes === 15) {
-    console.log(`[OK] Every slide (15/15) has detailed speaker notes.`);
+if (!speakerNotesDrawerMatches && !speakerNotesClassMatches && !speakerNotesBtnMatches) {
+    console.log(`[OK] Speaker notes features are completely removed from HTML.`);
 } else {
-    errors.push(`Requirement failure: All slides must contain speaker notes. Found: ${numSpeakerNotes} speaker note sections.`);
+    errors.push(`Requirement failure: Speaker notes references still exist in index.html!`);
 }
 
-// 3. Validate style.css projector constraints
+// C. Verify all slide bullet count limits (max 5 bullet points)
+// Check if any ul block has more than 5 list items. We'll search for ul tags and count their children.
+const slideBlocks = indexContent.split(/<section[^>]*class="[^"]*slide[^"]*"[^>]*>/i);
+// Skip the first block as it is before the first slide
+slideBlocks.shift();
+
+slideBlocks.forEach((block, idx) => {
+    const listMatches = block.match(/<li[^>]*>/gi);
+    const numBullets = listMatches ? listMatches.length : 0;
+    if (numBullets > 5) {
+        errors.push(`Slide ${idx + 1} has ${numBullets} bullet points (Limit is 5).`);
+    } else {
+        console.log(`[OK] Slide ${idx + 1} bullet count: ${numBullets} (under limit)`);
+    }
+});
+
+// 3. Validate style.css constraints
 const styleContent = fs.readFileSync(styleCssPath, 'utf8');
 
-// A. Check colors
-const projectorColorTokens = [
-    '#FFD54F', // Safety Yellow
-    '#26C6DA', // Cyan/Teal
-    '#E53935', // Red
-    '#43A047', // Green
-    '#FFFFFF'  // White
+// A. Check that progress bar is 6-8px
+const progressHeightMatches = styleContent.match(/height:\s*(6|7|8)px/i);
+if (progressHeightMatches) {
+    console.log(`[OK] Top progress bar thickness is between 6-8px (Found: ${progressHeightMatches[0]}).`);
+} else {
+    warnings.push(`Progress bar thickness might not be styled between 6-8px.`);
+}
+
+// B. Verify animated gradient colors
+const gradientColors = [
+    '#26c6da', // Cyan
+    '#ffd54f', // Yellow
+    '#ff9100', // Orange
+    '#e53935'  // Red
 ];
-
-projectorColorTokens.forEach(color => {
-    if (styleContent.toLowerCase().includes(color.toLowerCase())) {
-        console.log(`[OK] Projector-optimized color token verified: ${color}`);
-    } else {
-        warnings.push(`Projector-optimized color token not explicitly styled: ${color}`);
+let colorCount = 0;
+gradientColors.forEach(color => {
+    if (styleContent.toLowerCase().includes(color)) {
+        colorCount++;
     }
 });
+if (colorCount >= 3) {
+    console.log(`[OK] Widescreen layout matches projector safety gradient theme colors.`);
+} else {
+    warnings.push(`Projector gradient safety colors are missing or styled differently (Found ${colorCount}/4).`);
+}
 
-// B. Ensure no medium/dark gray colors for text to avoid low contrast
-const darkGrayHexPatterns = [/#333/i, /#444/i, /#555/i, /#666/i, /#777/i, /#888/i, /#999/i, /#aaa/i, /#bbb/i, /#ccc/i];
-darkGrayHexPatterns.forEach(pattern => {
-    if (pattern.test(styleContent)) {
-        warnings.push(`Contrast check: Found dark/medium gray color match (${pattern.source}) in CSS. Ensure text contrast is kept high.`);
-    }
-});
+// 4. Validate app.js
+const appContent = fs.readFileSync(appJsPath, 'utf8');
+const drawerLogicMatches = appContent.match(/speaker-notes-drawer|notesToggleBtn|notesBody|toggleSpeakerNotes/gi);
+if (!drawerLogicMatches) {
+    console.log(`[OK] Speaker notes JS controllers are successfully removed.`);
+} else {
+    errors.push(`Requirement failure: app.js contains residual speaker notes logic!`);
+}
 
-// 4. Summarize validation
-console.log('\n=== VALIDATION SUMMARY ===');
+// 5. Summarize validation
+console.log('\n=== REDESIGN VALIDATION SUMMARY ===');
 if (errors.length > 0) {
     console.error(`[FAILED] ${errors.length} error(s) found:`);
     errors.forEach(e => console.error(`  - ${e}`));
     process.exit(1);
 } else {
-    console.log('[PASSED] All structural and thematic tests passed successfully.');
+    console.log('[PASSED] All redesign structural checks passed successfully.');
     if (warnings.length > 0) {
-        console.log('\nWarnings (recommendations only):');
+        console.log('\nWarnings:');
         warnings.forEach(w => console.log(`  - ${w}`));
     }
     process.exit(0);
