@@ -19,9 +19,9 @@
     --font-body: 'Outfit', sans-serif;
     
     /* Card / Glassmorphism */
-    --glass-bg: rgba(26, 26, 26, 0.9);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    --glass-bg: rgba(26, 26, 26, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
     
     /* Animations */
     --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -30,7 +30,7 @@
 }
 
 /* ==========================================================================
-   Reset and Core Layouts
+   Reset and Viewport Centering
    ========================================================================== */
 * {
     box-sizing: border-box;
@@ -41,54 +41,64 @@
 html, body {
     width: 100%;
     height: 100%;
-    background-color: #080808; /* Ultra-dark backdrop to frame the presentation */
+    background-color: #060606; /* Solid dark backdrop outside the canvas */
     color: var(--text-primary);
     font-family: var(--font-body);
-    overflow: hidden;
+    overflow: hidden; /* Disable page scrolling */
+}
+
+/* Parent container centered on screen */
+#presentation-container {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
+    background-color: #080808;
 }
 
-/* 16:9 Widescreen Aspect-Ratio Container (PowerPoint Widescreen Coordinates) */
-#presentation-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    max-width: calc(100vh * 16 / 9);
-    max-height: calc(100vw * 9 / 16);
+/* Fixed 16:9 PowerPoint-style Canvas (1920x1080 coordinates) */
+#presentation-canvas {
+    width: 1920px;
+    height: 1080px;
     background-color: var(--bg-dark);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    transform-origin: center center;
     overflow: hidden;
-    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    /* Set scaling font-size so child em units scale with screen size */
-    font-size: clamp(12px, 1.05vw, 20px); 
 }
 
 /* ==========================================================================
-   Top Gradient Progress Bar & Header
+   Header Layout
    ========================================================================== */
 #top-bar {
-    height: 4.5em;
-    background: rgba(18, 18, 18, 0.95);
-    border-bottom: 1px solid var(--glass-border);
+    height: 100px;
+    background: rgba(18, 18, 18, 0.96);
+    border-bottom: 2px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 3em;
+    padding: 0 60px;
+    position: relative;
     z-index: 10;
 }
 
 #top-bar .logo {
     display: flex;
     align-items: center;
-    gap: 0.8em;
+    gap: 16px;
+    width: 450px;
 }
 
 .radiation-icon {
-    font-size: 1.8rem;
+    font-size: 34px;
     color: var(--accent-yellow);
     animation: pulse-slow 3s infinite ease-in-out;
 }
@@ -96,7 +106,7 @@ html, body {
 .course-tag {
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 20px;
     letter-spacing: 3px;
     color: var(--text-primary);
 }
@@ -106,7 +116,7 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 7px; /* 6-8px thickness */
+    height: 8px; /* 6-8px thickness */
     background: rgba(255, 255, 255, 0.05);
     z-index: 15;
 }
@@ -118,25 +128,59 @@ html, body {
     transition: width var(--transition-mid);
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 450px;
+    justify-content: flex-end;
+}
+
 .slide-counter-pill {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 22px;
     color: var(--accent-cyan);
     background: rgba(38, 198, 218, 0.08);
     border: 1px solid rgba(38, 198, 218, 0.25);
-    padding: 0.4em 1.2em;
+    padding: 8px 24px;
     border-radius: 30px;
-    display: inline-block;
+}
+
+/* Fullscreen Button */
+#fullscreen-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+#fullscreen-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent-yellow);
+    transform: scale(1.08);
+}
+
+.fullscreen-svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* ==========================================================================
-   Slides Wrapper and Dynamic Slide Frames
+   Slides Wrapper & Transition Setup
    ========================================================================== */
 #slides-wrapper {
     position: relative;
     flex-grow: 1;
     width: 100%;
+    height: 880px; /* Locked height inside 1080px grid */
     overflow: hidden;
 }
 
@@ -149,11 +193,11 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 3.5em 5em; /* Widescreen spacing padding */
+    padding: 60px 100px 40px 100px; /* Spacious margins */
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-mid), transform var(--transition-mid);
-    transform: translateY(1.5em); /* Slide transition lift preset */
+    transform: translateY(20px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -167,64 +211,58 @@ html, body {
     z-index: 2;
 }
 
-/* ==========================================================================
-   Slide Content, Headings & Grid Layouts
-   ========================================================================== */
 .slide-content {
-    max-width: 90%;
+    width: 1720px; /* Fixed dimensions based on container coordinates */
+    height: 780px;
     margin: 0 auto;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
+/* Consistent Title Positioning */
 .slide-heading {
     font-family: var(--font-heading);
-    font-size: 2.2rem; /* Larger projector titles */
+    font-size: 46px; /* Title size > 34-42pt rules */
     font-weight: 800;
-    margin-bottom: 1.2em;
-    margin-top: 0.5em; /* Increased top breathing room */
+    margin-top: 40px; /* Spacious top breathing room margin */
+    margin-bottom: 45px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-left: 5px solid var(--accent-yellow);
-    padding-left: 0.6em;
+    border-left: 6px solid var(--accent-yellow);
+    padding-left: 20px;
     display: flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 15px;
     color: var(--text-primary);
-    position: relative;
 }
 
 .heading-num {
     color: var(--accent-cyan);
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 38px;
 }
 
-/* Spacing and Grids */
+/* Grids - Columns: Text takes ~60%, Visual takes ~40% */
 .grid-2col {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    gap: 3.5em;
+    gap: 80px;
     align-items: center;
-    height: calc(100% - 4.5em);
-    margin-bottom: 1em;
+    height: 520px;
 }
 
 .grid-3col {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.2em;
+    gap: 40px;
     width: 100%;
 }
 
-/* Image Column constraint: images take 35-45% width, text takes the rest */
+/* Image column constraints */
 .visual-container.img-panel {
     width: 100%;
     height: 100%;
-    min-height: 16em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -238,26 +276,26 @@ html, body {
 }
 
 .bullets-container li {
-    font-size: 1.45rem; /* Large font size for visibility */
-    line-height: 1.55;
-    margin-bottom: 1.2em;
+    font-size: 28px; /* Large readable body text (minimum 24-28pt) */
+    line-height: 1.6;
+    margin-bottom: 24px;
     position: relative;
-    padding-left: 2.2em;
+    padding-left: 50px;
     color: var(--text-secondary);
     max-width: 95%;
     
     /* Animation initial states */
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(20px);
 }
 
 .bullets-container li::before {
     content: "■";
     position: absolute;
-    left: 0.6em;
+    left: 15px;
     color: var(--accent-yellow);
-    font-size: 0.85rem;
-    top: 0.35em;
+    font-size: 18px;
+    top: 5px;
 }
 
 /* Trigger animation sequentially on slide activation */
@@ -281,9 +319,9 @@ strong {
    ========================================================================== */
 .glass-panel {
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.8em;
+    border: 2px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 30px;
     box-shadow: var(--glass-shadow);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -292,9 +330,9 @@ strong {
 /* Image Card settings */
 .img-panel {
     position: relative;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid var(--glass-border);
+    border: 2px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     background: var(--bg-panel);
 }
@@ -320,8 +358,8 @@ strong {
     width: 100%;
     background: rgba(18, 18, 18, 0.9);
     border-top: 1px solid var(--glass-border);
-    padding: 1em 1.5em;
-    font-size: 1rem;
+    padding: 18px 25px;
+    font-size: 20px;
     color: var(--accent-yellow);
     font-weight: 600;
 }
@@ -330,7 +368,7 @@ strong {
 .lessons-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.8em;
+    gap: 30px;
 }
 
 .lesson-card, .concl-card, .health-card, .env-metric-card, .comparison-card {
@@ -341,9 +379,9 @@ strong {
 }
 
 .lesson-card:hover, .concl-card:hover, .health-card:hover, .env-metric-card:hover, .comparison-card:hover {
-    transform: translateY(-6px) scale(1.03); /* Lift + scale 1.03 */
+    transform: translateY(-8px) scale(1.03); /* Lift + scale 1.03 */
     border-color: rgba(38, 198, 218, 0.4);
-    box-shadow: 0 15px 35px rgba(38, 198, 218, 0.15), 0 0 20px rgba(38, 198, 218, 0.05); /* Cyan Glow */
+    box-shadow: 0 20px 40px rgba(38, 198, 218, 0.15), 0 0 25px rgba(38, 198, 218, 0.08); /* Cyan Glow */
 }
 
 /* ==========================================================================
@@ -360,72 +398,73 @@ strong {
     color: var(--accent-yellow);
     background: rgba(255, 213, 79, 0.08);
     border: 1px solid rgba(255, 213, 79, 0.3);
-    padding: 0.5em 1.5em;
+    padding: 10px 30px;
     border-radius: 30px;
-    font-size: 0.9rem;
+    font-size: 18px;
     letter-spacing: 4px;
-    margin-bottom: 2em;
+    margin-top: 40px;
+    margin-bottom: 30px;
 }
 
 .main-title {
     font-family: var(--font-heading);
-    font-size: 3.5rem; /* PowerPoint Keynote Proportions */
+    font-size: 64px; /* PowerPoint Proportions */
     font-weight: 800;
     letter-spacing: 1px;
     line-height: 1.15;
-    margin-bottom: 0.4em;
+    margin-bottom: 20px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .subtitle {
-    font-size: 1.6rem;
+    font-size: 28px;
     color: var(--text-secondary);
-    margin-bottom: 2.2em;
+    margin-bottom: 50px;
     font-weight: 300;
     letter-spacing: 0.5px;
 }
 
 .team-section {
     width: 100%;
-    max-width: 75em;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .team-section h3 {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 20px;
     letter-spacing: 3px;
     color: var(--accent-cyan);
-    margin-bottom: 1.5em;
+    margin-bottom: 30px;
 }
 
 .team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5em;
+    gap: 30px;
 }
 
 .team-profile-card {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.5em;
+    border: 2px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2em;
+    gap: 20px;
     transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .team-profile-card:hover {
-    transform: translateY(-6px) scale(1.03);
+    transform: translateY(-8px) scale(1.03);
     border-color: var(--accent-yellow);
-    box-shadow: 0 10px 30px rgba(255, 213, 79, 0.15);
+    box-shadow: 0 15px 35px rgba(255, 213, 79, 0.15);
 }
 
 .avatar-placeholder {
-    width: 4.5em;
-    height: 4.5em;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid var(--glass-border);
@@ -436,13 +475,13 @@ strong {
 }
 
 .avatar-placeholder svg {
-    width: 2.2em;
-    height: 2.2em;
+    width: 50px;
+    height: 50px;
 }
 
 .profile-name {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 22px;
     font-weight: 700;
     color: var(--text-primary);
     text-align: center;
@@ -461,9 +500,9 @@ strong {
 
 .fission-diagram-wrapper h3 {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 22px;
     color: var(--accent-cyan);
-    margin-bottom: 1.8em;
+    margin-bottom: 35px;
 }
 
 .flow-diagram {
@@ -471,15 +510,15 @@ strong {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 2em;
+    margin-bottom: 35px;
 }
 
 .flow-step {
     flex: 1;
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.2em 0.8em;
+    border: 2px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px 16px;
     cursor: pointer;
     transition: all var(--transition-fast);
 }
@@ -492,57 +531,57 @@ strong {
 .flow-step.active {
     background: rgba(38, 198, 218, 0.08);
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 20px rgba(38, 198, 218, 0.3);
+    box-shadow: 0 0 25px rgba(38, 198, 218, 0.3);
     transform: scale(1.05);
 }
 
 .flow-step.active#step-fission {
     background: rgba(255, 213, 79, 0.08);
     border-color: var(--accent-yellow);
-    box-shadow: 0 0 20px rgba(255, 213, 79, 0.3);
+    box-shadow: 0 0 25px rgba(255, 213, 79, 0.3);
 }
 
 .flow-step.active#step-steam {
     background: rgba(229, 57, 53, 0.08);
     border-color: var(--accent-red);
-    box-shadow: 0 0 20px rgba(229, 57, 53, 0.3);
+    box-shadow: 0 0 25px rgba(229, 57, 53, 0.3);
 }
 
 .flow-step.active#step-electricity {
     background: rgba(67, 160, 71, 0.08);
     border-color: var(--accent-green);
-    box-shadow: 0 0 20px rgba(67, 160, 71, 0.3);
+    box-shadow: 0 0 25px rgba(67, 160, 71, 0.3);
 }
 
 .step-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.6em;
+    font-size: 34px;
+    margin-bottom: 12px;
 }
 
 .step-label {
     display: block;
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 18px;
     font-weight: 700;
 }
 
 .flow-arrow {
-    font-size: 1.5rem;
+    font-size: 26px;
     color: rgba(255, 255, 255, 0.2);
-    padding: 0 0.5em;
+    padding: 0 10px;
 }
 
 .interactive-caption {
-    font-size: 1.1rem;
+    font-size: 22px;
     color: var(--text-secondary);
     font-style: italic;
     background: rgba(255, 255, 255, 0.04);
-    padding: 0.8em 1.5em;
+    padding: 15px 30px;
     border-radius: 8px;
     display: inline-block;
     margin: 0 auto;
     max-width: 90%;
-    min-height: 3.5em;
+    min-height: 80px;
     line-height: 1.4;
 }
 
@@ -552,7 +591,7 @@ strong {
 .flowchart-vertical {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 15px;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -561,42 +600,42 @@ strong {
 .flowchart-node {
     width: 100%;
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 10px;
-    padding: 1.2em 1.5em;
+    border-radius: 12px;
+    padding: 20px 24px;
     text-align: left;
     transition: transform var(--transition-fast);
 }
 
 .flowchart-node:hover {
-    transform: translateX(8px);
+    transform: translateX(10px);
 }
 
 .danger-border {
-    border-left: 4px solid var(--accent-yellow);
+    border-left: 5px solid var(--accent-yellow);
 }
 
 .critical-border {
-    border-left: 4px solid var(--accent-red);
+    border-left: 5px solid var(--accent-red);
     background: rgba(229, 57, 53, 0.02);
 }
 
 .node-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.15rem;
-    margin-bottom: 0.4em;
+    font-size: 22px;
+    margin-bottom: 6px;
     color: var(--text-primary);
 }
 
 .node-desc {
-    font-size: 0.95rem;
+    font-size: 18px;
     color: var(--text-secondary);
     line-height: 1.4;
 }
 
 .flowchart-arrow {
     color: var(--accent-cyan);
-    font-size: 1.2rem;
+    font-size: 20px;
     animation: bounce-y 2s infinite ease-in-out;
 }
 
@@ -605,8 +644,8 @@ strong {
    ========================================================================== */
 .comparison-card {
     background: var(--bg-panel);
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    border: 2px solid var(--glass-border);
     overflow: hidden;
     height: 100%;
     display: flex;
@@ -618,8 +657,8 @@ strong {
     color: #FFFFFF;
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 1.15rem;
-    padding: 1em 1.5em;
+    font-size: 22px;
+    padding: 18px 25px;
     letter-spacing: 2px;
 }
 
@@ -628,22 +667,22 @@ strong {
     color: #FFFFFF;
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 1.15rem;
-    padding: 1em 1.5em;
+    font-size: 22px;
+    padding: 18px 25px;
     letter-spacing: 2px;
 }
 
 .comp-body {
-    padding: 2em;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 25px;
     justify-content: center;
     height: 100%;
 }
 
 .comp-body p {
-    font-size: 1.15rem;
+    font-size: 22px;
     line-height: 1.55;
     color: var(--text-secondary);
 }
@@ -661,35 +700,35 @@ strong {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.8em;
+    gap: 24px;
 }
 
 .alert-box-red {
     background: rgba(229, 57, 53, 0.08);
-    border: 1px solid var(--accent-red);
-    border-radius: 10px;
-    padding: 1.5em;
+    border: 2px solid var(--accent-red);
+    border-radius: 12px;
+    padding: 24px;
     display: flex;
-    gap: 1.2em;
+    gap: 20px;
     align-items: flex-start;
 }
 
 .alert-icon {
-    font-size: 2rem;
+    font-size: 34px;
     color: var(--accent-red);
     line-height: 1;
 }
 
 .alert-text h4 {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 22px;
     font-weight: 700;
-    margin-bottom: 0.4em;
+    margin-bottom: 8px;
     color: var(--text-primary);
 }
 
 .alert-text p {
-    font-size: 1rem;
+    font-size: 18px;
     line-height: 1.45;
     color: var(--text-secondary);
 }
@@ -697,25 +736,25 @@ strong {
 .response-steps {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 15px;
 }
 
 .response-badge {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
+    border: 2px solid var(--glass-border);
     border-radius: 8px;
-    padding: 1em 1.5em;
+    padding: 18px 25px;
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 20px;
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: 15px;
     color: var(--text-primary);
 }
 
 .response-badge .icon {
-    font-size: 1.4rem;
+    font-size: 24px;
     color: var(--accent-yellow);
 }
 
@@ -728,22 +767,22 @@ strong {
     justify-content: space-around;
     height: 100%;
     position: relative;
-    padding-left: 2.5em;
+    padding-left: 40px;
 }
 
 .evacuation-timeline::before {
     content: "";
     position: absolute;
-    left: 6px;
-    top: 10px;
-    bottom: 10px;
-    width: 3px;
+    left: 10px;
+    top: 15px;
+    bottom: 15px;
+    width: 4px;
     background: var(--glass-border);
 }
 
 .timeline-step {
     position: relative;
-    margin-bottom: 1.5em;
+    margin-bottom: 24px;
 }
 
 .timeline-step:last-child {
@@ -753,13 +792,13 @@ strong {
 .timeline-step::before {
     content: "";
     position: absolute;
-    left: -2.5em;
-    top: 2px;
-    width: 15px;
-    height: 15px;
+    left: -40px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: var(--bg-dark);
-    border: 3px solid var(--accent-yellow);
+    border: 4px solid var(--accent-yellow);
 }
 
 .timeline-step:first-child::before {
@@ -769,13 +808,13 @@ strong {
 .time {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 20px;
     color: var(--accent-cyan);
-    margin-bottom: 0.4em;
+    margin-bottom: 6px;
 }
 
 .event {
-    font-size: 1.1rem;
+    font-size: 20px;
     color: var(--text-secondary);
 }
 
@@ -792,19 +831,19 @@ strong {
 
 .slider-comparison-container h3 {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 20px;
     color: var(--accent-cyan);
-    margin-bottom: 1.5em;
+    margin-bottom: 24px;
 }
 
 .slider-frame {
     position: relative;
     width: 100%;
-    max-width: 28em;
-    height: 18em;
-    border-radius: 10px;
+    max-width: 500px;
+    height: 320px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid var(--glass-border);
+    border: 2px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
 }
 
@@ -825,13 +864,13 @@ strong {
 
 .label-top-left {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     background: rgba(229, 57, 53, 0.85);
     color: #FFF;
-    padding: 4px 8px;
+    padding: 6px 12px;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 14px;
     border-radius: 4px;
     font-family: var(--font-heading);
     z-index: 5;
@@ -839,13 +878,13 @@ strong {
 
 .label-top-right {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: rgba(67, 160, 71, 0.85);
     color: #FFF;
-    padding: 4px 8px;
+    padding: 6px 12px;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 14px;
     border-radius: 4px;
     font-family: var(--font-heading);
     z-index: 5;
@@ -858,7 +897,7 @@ strong {
 }
 
 .img-b img {
-    width: 28em; /* Force alignment with outer frame width */
+    width: 500px;
     max-width: none;
 }
 
@@ -866,7 +905,7 @@ strong {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 3px;
+    width: 4px;
     height: 100%;
     background: var(--accent-yellow);
     z-index: 6;
@@ -879,8 +918,8 @@ strong {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     background: var(--accent-yellow);
     color: #121212;
     border-radius: 50%;
@@ -888,7 +927,7 @@ strong {
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 16px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     user-select: none;
 }
@@ -900,15 +939,15 @@ strong {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 1.5em;
+    gap: 24px;
     height: 100%;
 }
 
 .health-card {
     background: rgba(255, 255, 255, 0.02);
-    border-left: 4px solid var(--glass-border);
-    padding: 1.5em;
-    border-radius: 0 10px 10px 0;
+    border-left: 5px solid var(--glass-border);
+    padding: 24px;
+    border-radius: 0 16px 16px 0;
     transition: background var(--transition-fast);
 }
 
@@ -923,12 +962,12 @@ strong {
 .hc-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.15rem;
-    margin-bottom: 0.4em;
+    font-size: 20px;
+    margin-bottom: 8px;
 }
 
 .health-card p {
-    font-size: 0.95rem;
+    font-size: 18px;
     line-height: 1.45;
     color: var(--text-secondary);
 }
@@ -940,24 +979,24 @@ strong {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 1.5em;
+    gap: 24px;
     height: 100%;
 }
 
 .env-metric-card {
     display: flex;
     align-items: center;
-    gap: 1.8em;
+    gap: 30px;
     background: rgba(255, 255, 255, 0.02);
-    padding: 1.5em;
-    border-radius: 10px;
-    border: 1px solid var(--glass-border);
+    padding: 24px;
+    border-radius: 16px;
+    border: 2px solid var(--glass-border);
 }
 
 .metric-icon {
-    font-size: 2.2rem;
-    width: 48px;
-    height: 48px;
+    font-size: 34px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -966,12 +1005,12 @@ strong {
 .metric-val {
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 22px;
     color: var(--text-primary);
 }
 
 .metric-lbl {
-    font-size: 0.95rem;
+    font-size: 18px;
     color: var(--text-secondary);
 }
 
@@ -986,43 +1025,43 @@ strong {
 
 .chart-center h3 {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 20px;
     color: var(--accent-cyan);
-    margin-bottom: 2em;
+    margin-bottom: 30px;
     text-align: center;
 }
 
 .chart-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1.8em;
+    gap: 25px;
     width: 100%;
-    margin-bottom: 1.8em;
+    margin-bottom: 25px;
 }
 
 .chart-bar-group {
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
+    gap: 8px;
 }
 
 .bar-label {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 18px;
     color: var(--text-primary);
 }
 
 .bar-container {
     display: flex;
     align-items: center;
-    gap: 1.2em;
+    gap: 20px;
     width: 100%;
 }
 
 .bar {
-    height: 24px;
-    border-radius: 4px;
+    height: 32px;
+    border-radius: 6px;
     transition: width var(--transition-slow);
     width: 0;
 }
@@ -1039,17 +1078,17 @@ strong {
 .bar-val {
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 18px;
     color: var(--text-primary);
 }
 
 .chart-disclaimer {
-    font-size: 0.85rem;
+    font-size: 16px;
     font-style: italic;
     color: var(--text-secondary);
     text-align: center;
-    border-top: 1px solid var(--glass-border);
-    padding-top: 1em;
+    border-top: 2px solid var(--glass-border);
+    padding-top: 15px;
 }
 
 /* ==========================================================================
@@ -1057,9 +1096,9 @@ strong {
    ========================================================================== */
 .lesson-num {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 2.8rem;
+    top: 15px;
+    right: 20px;
+    font-size: 38px;
     font-weight: 800;
     font-family: var(--font-heading);
     color: rgba(255, 255, 255, 0.04);
@@ -1068,14 +1107,14 @@ strong {
 
 .lesson-card h4 {
     font-family: var(--font-heading);
-    font-size: 1.15rem;
+    font-size: 20px;
     font-weight: 700;
     color: var(--accent-cyan);
-    margin-bottom: 0.6em;
+    margin-bottom: 10px;
 }
 
 .lesson-card p {
-    font-size: 0.95rem;
+    font-size: 18px;
     line-height: 1.45;
     color: var(--text-secondary);
 }
@@ -1084,43 +1123,43 @@ strong {
    Slide 14: Conclusion Panels
    ========================================================================== */
 .conclusion-panels {
-    margin-bottom: 2.5em;
+    margin-bottom: 40px;
 }
 
 .concl-card {
     text-align: center;
-    padding: 2.2em 1.5em;
+    padding: 30px 24px;
 }
 
 .c-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.6em;
+    font-size: 38px;
+    margin-bottom: 10px;
 }
 
 .concl-card h4 {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 0.8em;
+    margin-bottom: 12px;
 }
 
 .concl-card p {
-    font-size: 0.95rem;
+    font-size: 18px;
     line-height: 1.45;
     color: var(--text-secondary);
 }
 
 .quote-box {
     width: 100%;
-    max-width: 75em;
+    max-width: 1200px;
     margin: 0 auto;
-    border-left: 4px solid var(--accent-yellow);
+    border-left: 5px solid var(--accent-yellow);
     background: rgba(255, 213, 79, 0.02);
-    padding: 1.5em 2.5em;
+    padding: 24px 40px;
 }
 
 .quote-text {
-    font-size: 1.25rem;
+    font-size: 22px;
     font-style: italic;
     line-height: 1.5;
     color: var(--text-primary);
@@ -1131,18 +1170,18 @@ strong {
    ========================================================================== */
 .references-panel {
     width: 100%;
-    max-width: 75em;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: left;
 }
 
 .references-panel h3 {
     font-family: var(--font-heading);
-    font-size: 1.15rem;
+    font-size: 20px;
     color: var(--accent-yellow);
-    border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 0.8em;
-    margin-bottom: 1.5em;
+    border-bottom: 2px solid var(--glass-border);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
     letter-spacing: 2px;
 }
 
@@ -1151,34 +1190,34 @@ strong {
 }
 
 .references-panel li {
-    font-size: 1.15rem;
+    font-size: 20px;
     line-height: 1.55;
-    margin-bottom: 1.2em;
+    margin-bottom: 20px;
     position: relative;
-    padding-left: 2em;
+    padding-left: 30px;
     color: var(--text-secondary);
 }
 
 .references-panel li::before {
     content: "■";
     position: absolute;
-    left: 0.3em;
+    left: 5px;
     color: var(--accent-cyan);
-    font-size: 0.8rem;
-    top: 0.25em;
+    font-size: 14px;
+    top: 4px;
 }
 
 /* ==========================================================================
    Navigation Controls (Footer)
    ========================================================================== */
 #nav-controls {
-    height: 5em;
+    height: 100px;
     background: rgba(18, 18, 18, 0.98);
-    border-top: 1px solid var(--glass-border);
+    border-top: 2px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 3em;
+    padding: 0 60px;
     z-index: 10;
 }
 
@@ -1188,9 +1227,9 @@ strong {
     border: 1px solid var(--glass-border);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.85rem;
-    padding: 0.8em 1.8em;
-    border-radius: 6px;
+    font-size: 18px;
+    padding: 12px 30px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all var(--transition-fast);
     letter-spacing: 1px;
@@ -1200,7 +1239,7 @@ strong {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--accent-yellow);
     color: var(--accent-yellow);
-    transform: scale(1.05); /* Scale buttons on hover */
+    transform: scale(1.05);
 }
 
 .nav-btn:disabled {
@@ -1213,17 +1252,17 @@ strong {
 
 #timeline-indicator-wrapper {
     flex-grow: 1;
-    max-width: 45%;
-    margin: 0 3em;
+    max-width: 50%;
+    margin: 0 50px;
     display: flex;
     align-items: center;
 }
 
 #timeline-indicator-track {
     width: 100%;
-    height: 4px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 2px;
+    border-radius: 3px;
     position: relative;
     overflow: hidden;
 }
@@ -1235,14 +1274,8 @@ strong {
     height: 100%;
     width: 6.67%;
     background: var(--accent-cyan);
-    border-radius: 2px;
+    border-radius: 3px;
     transition: width var(--transition-mid), background-color var(--transition-mid);
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1.5em;
 }
 
 /* ==========================================================================

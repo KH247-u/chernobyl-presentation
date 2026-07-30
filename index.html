@@ -15,540 +15,550 @@
     <!-- Main Presentation Container -->
     <div id="presentation-container">
         
-        <!-- Top Indicator Bar -->
-        <header id="top-bar">
-            <div class="logo">
-                <span class="radiation-icon">&#9762;</span>
-                <span class="course-tag">DISASTER MANAGEMENT</span>
-            </div>
-            <div id="slide-progress-container">
-                <div id="slide-progress-bar"></div>
-            </div>
-            <div class="slide-counter-pill"><span id="current-slide-num">1</span> / 15</div>
-        </header>
-
-        <!-- Slide Frame / Slider Wrapper -->
-        <main id="slides-wrapper">
+        <!-- Fixed 16:9 Presentation Canvas -->
+        <div id="presentation-canvas">
             
-            <!-- Slide 1: Title -->
-            <section class="slide active" id="slide-1" style="background-image: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.95)), url('images/reactor_four_disaster.png');">
-                <div class="slide-content title-slide-layout">
-                    <div class="title-badge animate-fade-in">&#9762; IN-DEPTH DISASTER STUDY</div>
-                    <h1 class="main-title animate-slide-up">CHERNOBYL DISASTER <span class="highlight-yellow">(1986)</span></h1>
-                    <p class="subtitle animate-slide-up">The World's Worst Nuclear Power Plant Accident</p>
-                    
-                    <div class="team-section glass-panel animate-fade-in">
-                        <h3>OUR TEAM</h3>
-                        <div class="team-grid">
-                            <div class="team-profile-card">
-                                <div class="avatar-placeholder">
-                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                </div>
-                                <div class="profile-name">AMBADY SANTHOSH</div>
-                            </div>
-                            <div class="team-profile-card">
-                                <div class="avatar-placeholder">
-                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                </div>
-                                <div class="profile-name">AMALMON K H</div>
-                            </div>
-                            <div class="team-profile-card">
-                                <div class="avatar-placeholder">
-                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                </div>
-                                <div class="profile-name">HARIGOVIND J KARTHA</div>
-                            </div>
-                            <div class="team-profile-card">
-                                <div class="avatar-placeholder">
-                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                </div>
-                                <div class="profile-name">ABEL MATHEW PHILIP</div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Top Indicator Bar -->
+            <header id="top-bar">
+                <div class="logo">
+                    <span class="radiation-icon">&#9762;</span>
+                    <span class="course-tag">CHERNOBYL DISASTER (1986)</span>
                 </div>
-            </section>
+                <div id="slide-progress-container">
+                    <div id="slide-progress-bar"></div>
+                </div>
+                <div class="header-right">
+                    <div class="slide-counter-pill"><span id="current-slide-num">1</span> / 15</div>
+                    <button id="fullscreen-btn" title="Present (F)">
+                        <svg class="fullscreen-svg" viewBox="0 0 24 24">
+                            <path class="enter-fullscreen" fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                            <path class="exit-fullscreen" fill="currentColor" style="display:none;" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
 
-            <!-- Slide 2: What is a Nuclear Power Plant? -->
-            <section class="slide" id="slide-2">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">02</span> What is a Nuclear Power Plant?</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Nuclear Energy:</strong> Thermal energy released by breaking atomic bonds in heavy uranium isotopes.</li>
-                                <li style="--bullet-idx: 1;"><strong>Nuclear Fission:</strong> Neutrons split Uranium-235 atoms, initiating a self-sustaining chain reaction.</li>
-                                <li style="--bullet-idx: 2;"><strong>Steam Production:</strong> Superheated coolant water vaporizes under high pressure inside the loop.</li>
-                                <li style="--bullet-idx: 3;"><strong>Turbine Rotation:</strong> High-velocity steam expands against and rotates steam turbine blades.</li>
-                                <li style="--bullet-idx: 4;"><strong>Power Generation:</strong> Spinning generator magnets convert mechanical rotation to electricity.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="fission-diagram-wrapper">
-                                <h3>Electricity Generation Process</h3>
-                                <div class="flow-diagram">
-                                    <div class="flow-step active" id="step-fission">
-                                        <div class="step-icon">&#9883;</div>
-                                        <span class="step-label">Fission Core</span>
+            <!-- Slide Frame / Slider Wrapper -->
+            <main id="slides-wrapper">
+                
+                <!-- Slide 1: Title -->
+                <section class="slide active" id="slide-1" style="background-image: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.95)), url('images/reactor_four_disaster.png');">
+                    <div class="slide-content title-slide-layout">
+                        <div class="title-badge animate-fade-in">&#9762; IN-DEPTH DISASTER STUDY</div>
+                        <h1 class="main-title animate-slide-up">CHERNOBYL DISASTER <span class="highlight-yellow">(1986)</span></h1>
+                        <p class="subtitle animate-slide-up">The World's Worst Nuclear Power Plant Accident</p>
+                        
+                        <div class="team-section glass-panel animate-fade-in">
+                            <h3>OUR TEAM</h3>
+                            <div class="team-grid">
+                                <div class="team-profile-card">
+                                    <div class="avatar-placeholder">
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                                     </div>
-                                    <div class="flow-arrow">&rarr;</div>
-                                    <div class="flow-step" id="step-steam">
-                                        <div class="step-icon">&#9752;</div>
-                                        <span class="step-label">Steam Heat</span>
+                                    <div class="profile-name">AMBADY SANTHOSH</div>
+                                </div>
+                                <div class="team-profile-card">
+                                    <div class="avatar-placeholder">
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                                     </div>
-                                    <div class="flow-arrow">&rarr;</div>
-                                    <div class="flow-step" id="step-turbine">
-                                        <div class="step-icon">&#9881;</div>
-                                        <span class="step-label">Turbine Spins</span>
+                                    <div class="profile-name">AMALMON K H</div>
+                                </div>
+                                <div class="team-profile-card">
+                                    <div class="avatar-placeholder">
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                                     </div>
-                                    <div class="flow-arrow">&rarr;</div>
-                                    <div class="flow-step" id="step-electricity">
-                                        <div class="step-icon">&#9889;</div>
-                                        <span class="step-label">Grid Output</span>
+                                    <div class="profile-name">HARIGOVIND J KARTHA</div>
+                                </div>
+                                <div class="team-profile-card">
+                                    <div class="avatar-placeholder">
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                                     </div>
-                                </div>
-                                <div class="interactive-caption" id="flow-caption">Uranium fission produces intense heat inside the reactor core.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 3: About Chernobyl -->
-            <section class="slide" id="slide-3">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">03</span> About the Chernobyl Plant</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Location:</strong> Near Pripyat, Ukrainian SSR, Soviet Union (110 km north of Kyiv).</li>
-                                <li style="--bullet-idx: 1;"><strong>Reactor Type:</strong> RBMK-1000 graphite-moderated, boiling water pressure-tube design.</li>
-                                <li style="--bullet-idx: 2;"><strong>Plant Capacity:</strong> Housed 4 operational reactors, each producing 1,000 MW of electricity.</li>
-                                <li style="--bullet-idx: 3;"><strong>Reactor 4 Significance:</strong> Completed in December 1983, it was a highly modern unit.</li>
-                                <li style="--bullet-idx: 4;"><strong>Primary Purpose:</strong> Combined power generation for the grid and plutonium synthesis.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container img-panel">
-                            <img src="images/chernobyl_map_pripyat.png" alt="Chernobyl Location Map" class="slide-img">
-                            <div class="img-caption">Geographic coordinates of Reactor 4 and Pripyat settlement.</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 4: Why the Disaster Happened -->
-            <section class="slide" id="slide-4">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">04</span> Why the Disaster Happened</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Safety Test:</strong> Designed to verify if spinning turbines could power cooling pumps during an outage.</li>
-                                <li style="--bullet-idx: 1;"><strong>Operator Errors:</strong> Bypassing automatic shut-down systems to maintain emergency test status.</li>
-                                <li style="--bullet-idx: 2;"><strong>Reactor Instability:</strong> Core poisoned by Xenon-135 due to prolonged low-power operations.</li>
-                                <li style="--bullet-idx: 3;"><strong>Design Flaws:</strong> Volatile RBMK layout featuring a positive void coefficient safety risk.</li>
-                                <li style="--bullet-idx: 4;"><strong>Control Rod Flaw:</strong> Graphite tips caused a localized power spike during initial insertion.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="flowchart-vertical">
-                                <div class="flowchart-node danger-border">
-                                    <div class="node-title">1. Low Power Instability</div>
-                                    <p class="node-desc">Operators drop power too low; Xenon gas poisons the core.</p>
-                                </div>
-                                <div class="flowchart-arrow">&#9660;</div>
-                                <div class="flowchart-node danger-border">
-                                    <div class="node-title">2. Manual Safety Bypass</div>
-                                    <p class="node-desc">Safety interlocks disabled to bypass test conditions.</p>
-                                </div>
-                                <div class="flowchart-arrow">&#9660;</div>
-                                <div class="flowchart-node critical-border">
-                                    <div class="node-title">3. Positive Void Coefficient</div>
-                                    <p class="node-desc">Steam bubbles (voids) trigger an exponential runaway reaction.</p>
+                                    <div class="profile-name">ABEL MATHEW PHILIP</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Slide 5: The Explosion -->
-            <section class="slide" id="slide-5">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">05</span> The Explosion</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>AZ-5 Scram Command:</strong> Pressed at 1:23:40 AM, but control rods jammed in the warped channels.</li>
-                                <li style="--bullet-idx: 1;"><strong>Steam Explosion:</strong> Uncontrolled power spike vaporized cooling water, blowing off the biological shield.</li>
-                                <li style="--bullet-idx: 2;"><strong>Hydrogen Explosion:</strong> Zirconium-steam reaction released hydrogen gas, triggering a secondary blast.</li>
-                                <li style="--bullet-idx: 3;"><strong>Graphite Ignition:</strong> Exposed moderator blocks ignited, feeding a 10-day high-altitude thermal fire.</li>
-                                <li style="--bullet-idx: 4;"><strong>Energy Release:</strong> Dispersed radioactive materials via thermal draft, rather than weaponized fission.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="comparison-card">
-                                <div class="comp-header-red">&#9888; CRITICAL DISTINCTION</div>
-                                <div class="comp-body">
-                                    <p><strong>Chernobyl Reactor Explosion:</strong> Steam & hydrogen pressure blew open the core. Radioactive particles were carried up by thermal currents from the burning graphite.</p>
-                                    <hr class="comp-divider">
-                                    <p><strong>Nuclear Weapon Detonation:</strong> Uncontrolled supercritical nuclear fission/fusion generating a massive shockwave and thermal fireball.</p>
-                                </div>
+                <!-- Slide 2: What is a Nuclear Power Plant? -->
+                <section class="slide" id="slide-2">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">02</span> What is a Nuclear Power Plant?</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Nuclear Energy:</strong> Thermal energy released by breaking atomic bonds in heavy uranium isotopes.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Nuclear Fission:</strong> Neutrons split Uranium-235 atoms, initiating a self-sustaining chain reaction.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Steam Production:</strong> Superheated coolant water vaporizes under high pressure inside the loop.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Turbine Rotation:</strong> High-velocity steam expands against and rotates steam turbine blades.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Power Generation:</strong> Spinning generator magnets convert mechanical rotation to electricity.</li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 6: Immediate Emergency Response -->
-            <section class="slide" id="slide-6">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">06</span> Immediate Emergency Response</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>First Responders:</strong> Firefighters arrived within minutes with zero radiological protection gear.</li>
-                                <li style="--bullet-idx: 1;"><strong>Fire Mitigation:</strong> Focused on extinguishing roof fires on Reactor 3 to stop plant-wide spread.</li>
-                                <li style="--bullet-idx: 2;"><strong>Lethal Environment:</strong> Exposed to extreme fields up to 20,000 Roentgens per hour.</li>
-                                <li style="--bullet-idx: 3;"><strong>System Ignorance:</strong> Control room management initially refused to believe the core had exploded.</li>
-                                <li style="--bullet-idx: 4;"><strong>Heroic Sacrifices:</strong> Firemen took lethal radiation doses within minutes to contain the disaster.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel response-layout">
-                            <div class="alert-box-red">
-                                <span class="alert-icon">&#9888;</span>
-                                <div class="alert-text">
-                                    <h4>Extreme Dose Exposure</h4>
-                                    <p>First responders absorbed radiation levels up to 400 times lethal doses within 30 minutes of arrival.</p>
-                                </div>
-                            </div>
-                            <div class="response-steps">
-                                <div class="response-badge"><span class="icon">&#128642;</span> Fire Suppression</div>
-                                <div class="response-badge"><span class="icon">&#9877;</span> Core Water Inflow</div>
-                                <div class="response-badge"><span class="icon">&#9762;</span> Radiation Mapping</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 7: Evacuation & Disaster Management -->
-            <section class="slide" id="slide-7">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">07</span> Evacuation & Disaster Management</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>36-Hour Delay:</strong> Soviet leaders initially concealed the disaster, delaying public warnings.</li>
-                                <li style="--bullet-idx: 1;"><strong>Pripyat Evacuation:</strong> 49,000 residents evacuated in under 3 hours using 1,200 buses.</li>
-                                <li style="--bullet-idx: 2;"><strong>Relocation Message:</strong> Told to pack for a temporary 3-day absence; they never returned.</li>
-                                <li style="--bullet-idx: 3;"><strong>Exclusion Zone:</strong> Establishment of the 30-km perimeter to block civilian exposure.</li>
-                                <li style="--bullet-idx: 4;"><strong>Total Displacement:</strong> Over 335,000 people were permanently relocated from radioactive areas.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="evacuation-timeline">
-                                <div class="timeline-step">
-                                    <div class="time">April 26, 01:23 AM</div>
-                                    <div class="event">Explosion at Reactor 4.</div>
-                                </div>
-                                <div class="timeline-step">
-                                    <div class="time">April 27, 02:00 PM</div>
-                                    <div class="event">Evacuation of Pripyat begins (36-hour delay).</div>
-                                </div>
-                                <div class="timeline-step">
-                                    <div class="time">May 2, 1986</div>
-                                    <div class="event">10-km zone evacuation ordered.</div>
-                                </div>
-                                <div class="timeline-step">
-                                    <div class="time">May 6, 1986</div>
-                                    <div class="event">30-km zone completely evacuated.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 8: Containment Measures -->
-            <section class="slide" id="slide-8">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">08</span> Containment Measures</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Helicopter Missions:</strong> Dropped 5,000 tons of sand, clay, lead, and boron to seal the core.</li>
-                                <li style="--bullet-idx: 1;"><strong>The Sarcophagus:</strong> Concrete dome built in extreme radiation to temporarily encase Reactor 4.</li>
-                                <li style="--bullet-idx: 2;"><strong>Liquidator Forces:</strong> Over 600,000 emergency personnel cleaned up highly contaminated areas.</li>
-                                <li style="--bullet-idx: 3;"><strong>New Safe Confinement:</strong> Steel arch positioned in 2016 to secure the core for 100 years.</li>
-                                <li style="--bullet-idx: 4;"><strong>Primary Objective:</strong> Contain radioactive dust and prevent water runoff from entering soil.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="slider-comparison-container">
-                                <h3>Visual History of Reactor Containment</h3>
-                                <div class="slider-frame">
-                                    <div class="slide-image-container img-a">
-                                        <img src="images/reactor_four_disaster.png" alt="1986 Destruction">
-                                        <div class="label-top-left">1986 Ruin</div>
+                            <div class="visual-container glass-panel">
+                                <div class="fission-diagram-wrapper">
+                                    <h3>Electricity Generation Process</h3>
+                                    <div class="flow-diagram">
+                                        <div class="flow-step active" id="step-fission">
+                                            <div class="step-icon">&#9883;</div>
+                                            <span class="step-label">Fission Core</span>
+                                        </div>
+                                        <div class="flow-arrow">&rarr;</div>
+                                        <div class="flow-step" id="step-steam">
+                                            <div class="step-icon">&#9752;</div>
+                                            <span class="step-label">Steam Heat</span>
+                                        </div>
+                                        <div class="flow-arrow">&rarr;</div>
+                                        <div class="flow-step" id="step-turbine">
+                                            <div class="step-icon">&#9881;</div>
+                                            <span class="step-label">Turbine Spins</span>
+                                        </div>
+                                        <div class="flow-arrow">&rarr;</div>
+                                        <div class="flow-step" id="step-electricity">
+                                            <div class="step-icon">&#9889;</div>
+                                            <span class="step-label">Grid Output</span>
+                                        </div>
                                     </div>
-                                    <div class="slide-image-container img-b" id="slider-image-overlay">
-                                        <img src="images/new_safe_confinement.png" alt="2016 Confinement">
-                                        <div class="label-top-right">2016 Confinement</div>
-                                    </div>
-                                    <div class="slider-handle" id="slider-bar">
-                                        <div class="slider-button">&larr;&rarr;</div>
-                                    </div>
-                                </div>
-                                <div class="interactive-caption">Drag the slider left and right to compare containment phases.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 9: Health Effects -->
-            <section class="slide" id="slide-9">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">09</span> Health Effects of the Disaster</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Acute Radiation Syndrome:</strong> Diagnosed in 134 responders; 28 died within three months.</li>
-                                <li style="--bullet-idx: 1;"><strong>Thyroid Cancer:</strong> High pediatric rates from drinking milk contaminated with Iodine-131.</li>
-                                <li style="--bullet-idx: 2;"><strong>Potassium Iodide (KI):</strong> Blocks thyroid absorption of radioactive iodine isotopes.</li>
-                                <li style="--bullet-idx: 3;"><strong>Mental Health Impact:</strong> Widespread psychological stress and anxiety from relocation trauma.</li>
-                                <li style="--bullet-idx: 4;"><strong>Chronic Monitoring:</strong> Ongoing surveillance for cataracts and cardiovascular risk.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel health-layout">
-                            <div class="health-card">
-                                <div class="hc-title highlight-red">&#9762; Acute Effects (ARS)</div>
-                                <p>High dose radiation damaging bone marrow, gastrointestinal tract, and central nervous system.</p>
-                            </div>
-                            <div class="health-card">
-                                <div class="hc-title highlight-yellow">&#9877; Thyroid Cancer Risk</div>
-                                <p>Iodine-131 concentrates in the thyroid. Highly treatable if caught early, but caused thousands of pediatric cases.</p>
-                            </div>
-                            <div class="health-card">
-                                <div class="hc-title highlight-cyan">&#128138; Potassium Iodide (KI)</div>
-                                <p>A key preventive measure. Blocks radioactive isotope absorption. Crucial for nuclear incident planning.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 10: Environmental Impact -->
-            <section class="slide" id="slide-10">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">10</span> Environmental Impact</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>The Red Forest:</strong> 10 sq km of pine trees absorbed lethal radiation, died, and turned red.</li>
-                                <li style="--bullet-idx: 1;"><strong>Atmospheric Fallout:</strong> Wind currents carried radioactive isotopes across Europe.</li>
-                                <li style="--bullet-idx: 2;"><strong>Soil Contamination:</strong> Cesium-137 and Strontium-90 isotopes persist with 30-year half-lives.</li>
-                                <li style="--bullet-idx: 3;"><strong>Water Management:</strong> Dykes built along the Pripyat River to shield Kyiv's water reservoirs.</li>
-                                <li style="--bullet-idx: 4;"><strong>Bioaccumulation:</strong> High radiation levels found in forest berries, mushrooms, and local wildlife.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel env-layout">
-                            <div class="env-metric-card">
-                                <div class="metric-icon highlight-red">&#127794;</div>
-                                <div class="metric-val">Red Forest</div>
-                                <div class="metric-lbl">10 km² Pine Forest Dead</div>
-                            </div>
-                            <div class="env-metric-card">
-                                <div class="metric-icon highlight-yellow">&#127758;</div>
-                                <div class="metric-val">Cesium-137</div>
-                                <div class="metric-lbl">30-Year Half-Life in Soil</div>
-                            </div>
-                            <div class="env-metric-card">
-                                <div class="metric-icon highlight-cyan">&#128167;</div>
-                                <div class="metric-val">Water Catch</div>
-                                <div class="metric-lbl">Dnieper River Runoff Safe</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 11: Wildlife After the Disaster -->
-            <section class="slide" id="slide-11">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">11</span> Wildlife After the Disaster</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Acute Mortality:</strong> High radiation caused immediate deaths and reproductive failures.</li>
-                                <li style="--bullet-idx: 1;"><strong>Unexpected Rebound:</strong> Animal populations grew significantly inside the Exclusion Zone.</li>
-                                <li style="--bullet-idx: 2;"><strong>Key Species:</strong> Wolves, wild boars, roe deer, and endangered Przewalski's horses flourished.</li>
-                                <li style="--bullet-idx: 3;"><strong>The Human Factor:</strong> Absence of humans (hunting, farming, cars) outweighed radioactive risks.</li>
-                                <li style="--bullet-idx: 4;"><strong>Genetic Studies:</strong> Chronic low-dose exposure causes mutations, but populations remain stable.</li>
-                            </ul>
-                        </div>
-                        <div class="visual-container glass-panel">
-                            <div class="comparison-card">
-                                <div class="comp-header-green">&#127811; ECOLOGICAL PARADOX</div>
-                                <div class="comp-body">
-                                    <p><strong>Short-term (1986):</strong> Severe cellular damage and high mortality rates in local animal and plant populations.</p>
-                                    <hr class="comp-divider">
-                                    <p><strong>Long-term (Present):</strong> The Exclusion Zone has become one of Europe's largest wildlife sanctuaries. Human absence has proven more beneficial to wildlife than radiation is harmful.</p>
+                                    <div class="interactive-caption" id="flow-caption">Uranium fission produces intense heat inside the reactor core.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Slide 12: Deaths and Long-Term Impact -->
-            <section class="slide" id="slide-12">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">12</span> Deaths and Long-Term Impact</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
-                            <ul>
-                                <li style="--bullet-idx: 0;"><strong>Direct Fatalities:</strong> 2 workers killed in the blast; 1 died of coronary thrombosis.</li>
-                                <li style="--bullet-idx: 1;"><strong>Emergency Crew Deaths:</strong> 28 firefighters and operators died of acute radiation exposure.</li>
-                                <li style="--bullet-idx: 2;"><strong>WHO Cancer Estimate:</strong> Projects up to 4,000 excess cancer deaths among liquidators and residents.</li>
-                                <li style="--bullet-idx: 3;"><strong>UNSCEAR Calculation:</strong> Confirms ~60 direct deaths and thyroid cancer cases to date.</li>
-                                <li style="--bullet-idx: 4;"><strong>Long-term Variance:</strong> Discrepancies exist due to differing low-dose statistical models.</li>
-                            </ul>
+                <!-- Slide 3: About Chernobyl -->
+                <section class="slide" id="slide-3">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">03</span> About the Chernobyl Plant</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Location:</strong> Near Pripyat, Ukrainian SSR, Soviet Union (110 km north of Kyiv).</li>
+                                    <li style="--bullet-idx: 1;"><strong>Reactor Type:</strong> RBMK-1000 graphite-moderated, boiling water pressure-tube design.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Plant Capacity:</strong> Housed 4 operational reactors, each producing 1,000 MW of electricity.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Reactor 4 Significance:</strong> Completed in December 1983, it was a highly modern unit.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Primary Purpose:</strong> Combined power generation for the grid and plutonium synthesis.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container img-panel">
+                                <img src="images/chernobyl_map_pripyat.png" alt="Chernobyl Location Map" class="slide-img">
+                                <div class="img-caption">Geographic coordinates of Reactor 4 and Pripyat settlement.</div>
+                            </div>
                         </div>
-                        <div class="visual-container glass-panel chart-center">
-                            <h3>Comparison of Long-Term Cancer Death Estimates</h3>
-                            <div class="chart-wrapper">
-                                <div class="chart-bar-group">
-                                    <span class="bar-label">UNSCEAR (Confirmed)</span>
-                                    <div class="bar-container">
-                                        <div class="bar bar-unscear"></div>
-                                        <span class="bar-val">~60</span>
+                    </div>
+                </section>
+
+                <!-- Slide 4: Why the Disaster Happened -->
+                <section class="slide" id="slide-4">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">04</span> Why the Disaster Happened</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Safety Test:</strong> Designed to verify if spinning turbines could power cooling pumps during an outage.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Operator Errors:</strong> Bypassing automatic shut-down systems to maintain emergency test status.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Reactor Instability:</strong> Core poisoned by Xenon-135 due to prolonged low-power operations.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Design Flaws:</strong> Volatile RBMK layout featuring a positive void coefficient safety risk.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Control Rod Flaw:</strong> Graphite tips caused a localized power spike during initial insertion.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel">
+                                <div class="flowchart-vertical">
+                                    <div class="flowchart-node danger-border">
+                                        <div class="node-title">1. Low Power Instability</div>
+                                        <p class="node-desc">Operators drop power too low; Xenon gas poisons the core.</p>
                                     </div>
-                                </div>
-                                <div class="chart-bar-group">
-                                    <span class="bar-label">WHO (Projected)</span>
-                                    <div class="bar-container">
-                                        <div class="bar bar-who"></div>
-                                        <span class="bar-val">~4,000</span>
+                                    <div class="flowchart-arrow">&#9660;</div>
+                                    <div class="flowchart-node danger-border">
+                                        <div class="node-title">2. Manual Safety Bypass</div>
+                                        <p class="node-desc">Safety interlocks disabled to bypass test conditions.</p>
                                     </div>
-                                </div>
-                                <div class="chart-bar-group">
-                                    <span class="bar-label">Union of Concerned Scientists</span>
-                                    <div class="bar-container">
-                                        <div class="bar bar-ucs"></div>
-                                        <span class="bar-val">~27,000</span>
+                                    <div class="flowchart-arrow">&#9660;</div>
+                                    <div class="flowchart-node critical-border">
+                                        <div class="node-title">3. Positive Void Coefficient</div>
+                                        <p class="node-desc">Steam bubbles (voids) trigger an exponential runaway reaction.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="chart-disclaimer">Note: High discrepancies arise due to differing statistical models for low-dose exposure.</div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Slide 13: Lessons Learned -->
-            <section class="slide" id="slide-13">
-                <div class="slide-content">
-                    <h2 class="slide-heading"><span class="heading-num">13</span> Lessons Learned for Disaster Management</h2>
-                    <div class="grid-2col">
-                        <div class="bullets-container">
+                <!-- Slide 5: The Explosion -->
+                <section class="slide" id="slide-5">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">05</span> The Explosion</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>AZ-5 Scram Command:</strong> Pressed at 1:23:40 AM, but control rods jammed in the warped channels.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Steam Explosion:</strong> Uncontrolled power spike vaporized cooling water, blowing off the biological shield.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Hydrogen Explosion:</strong> Zirconium-steam reaction released hydrogen gas, triggering a secondary blast.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Graphite Ignition:</strong> Exposed moderator blocks ignited, feeding a 10-day high-altitude thermal fire.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Energy Release:</strong> Dispersed radioactive materials via thermal draft, rather than weaponized fission.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel">
+                                <div class="comparison-card">
+                                    <div class="comp-header-red">&#9888; CRITICAL DISTINCTION</div>
+                                    <div class="comp-body">
+                                        <p><strong>Chernobyl Reactor Explosion:</strong> Steam & hydrogen pressure blew open the core. Radioactive particles were carried up by thermal currents from the burning graphite.</p>
+                                        <hr class="comp-divider">
+                                        <p><strong>Nuclear Weapon Detonation:</strong> Uncontrolled supercritical nuclear fission/fusion generating a massive shockwave and thermal fireball.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 6: Immediate Emergency Response -->
+                <section class="slide" id="slide-6">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">06</span> Immediate Emergency Response</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>First Responders:</strong> Firefighters arrived within minutes with zero radiological protection gear.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Fire Mitigation:</strong> Focused on extinguishing roof fires on Reactor 3 to stop plant-wide spread.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Lethal Environment:</strong> Exposed to extreme fields up to 20,000 Roentgens per hour.</li>
+                                    <li style="--bullet-idx: 3;"><strong>System Ignorance:</strong> Control room management initially refused to believe the core had exploded.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Heroic Sacrifices:</strong> Firemen took lethal radiation doses within minutes to contain the disaster.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel response-layout">
+                                <div class="alert-box-red">
+                                    <span class="alert-icon">&#9888;</span>
+                                    <div class="alert-text">
+                                        <h4>Extreme Dose Exposure</h4>
+                                        <p>First responders absorbed radiation levels up to 400 times lethal doses within 30 minutes of arrival.</p>
+                                    </div>
+                                </div>
+                                <div class="response-steps">
+                                    <div class="response-badge"><span class="icon">&#128642;</span> Fire Suppression</div>
+                                    <div class="response-badge"><span class="icon">&#9877;</span> Core Water Inflow</div>
+                                    <div class="response-badge"><span class="icon">&#9762;</span> Radiation Mapping</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 7: Evacuation & Disaster Management -->
+                <section class="slide" id="slide-7">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">07</span> Evacuation & Disaster Management</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>36-Hour Delay:</strong> Soviet leaders initially concealed the disaster, delaying public warnings.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Pripyat Evacuation:</strong> 49,000 residents evacuated in under 3 hours using 1,200 buses.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Relocation Message:</strong> Told to pack for a temporary 3-day absence; they never returned.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Exclusion Zone:</strong> Establishment of the 30-km perimeter to block civilian exposure.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Total Displacement:</strong> Over 335,000 people were permanently relocated from radioactive areas.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel">
+                                <div class="evacuation-timeline">
+                                    <div class="timeline-step">
+                                        <div class="time">April 26, 01:23 AM</div>
+                                        <div class="event">Explosion at Reactor 4.</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="time">April 27, 02:00 PM</div>
+                                        <div class="event">Evacuation of Pripyat begins (36-hour delay).</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="time">May 2, 1986</div>
+                                        <div class="event">10-km zone evacuation ordered.</div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="time">May 6, 1986</div>
+                                        <div class="event">30-km zone completely evacuated.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 8: Containment Measures -->
+                <section class="slide" id="slide-8">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">08</span> Containment Measures</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Helicopter Missions:</strong> Dropped 5,000 tons of sand, clay, lead, and boron to seal the core.</li>
+                                    <li style="--bullet-idx: 1;"><strong>The Sarcophagus:</strong> Concrete dome built in extreme radiation to temporarily encase Reactor 4.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Liquidator Forces:</strong> Over 600,000 emergency personnel cleaned up highly contaminated areas.</li>
+                                    <li style="--bullet-idx: 3;"><strong>New Safe Confinement:</strong> Steel arch positioned in 2016 to secure the core for 100 years.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Primary Objective:</strong> Contain radioactive dust and prevent water runoff from entering soil.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel">
+                                <div class="slider-comparison-container">
+                                    <h3>Visual History of Reactor Containment</h3>
+                                    <div class="slider-frame">
+                                        <div class="slide-image-container img-a">
+                                            <img src="images/reactor_four_disaster.png" alt="1986 Destruction">
+                                            <div class="label-top-left">1986 Ruin</div>
+                                        </div>
+                                        <div class="slide-image-container img-b" id="slider-image-overlay">
+                                            <img src="images/new_safe_confinement.png" alt="2016 Confinement">
+                                            <div class="label-top-right">2016 Confinement</div>
+                                        </div>
+                                        <div class="slider-handle" id="slider-bar">
+                                            <div class="slider-button">&larr;&rarr;</div>
+                                        </div>
+                                    </div>
+                                    <div class="interactive-caption">Drag the slider left and right to compare containment phases.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 9: Health Effects -->
+                <section class="slide" id="slide-9">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">09</span> Health Effects of the Disaster</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Acute Radiation Syndrome:</strong> Diagnosed in 134 responders; 28 died within three months.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Thyroid Cancer:</strong> High pediatric rates from drinking milk contaminated with Iodine-131.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Potassium Iodide (KI):</strong> Blocks thyroid absorption of radioactive iodine isotopes.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Mental Health Impact:</strong> Widespread psychological stress and anxiety from relocation trauma.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Chronic Monitoring:</strong> Ongoing surveillance for cataracts and cardiovascular risk.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel health-layout">
+                                <div class="health-card">
+                                    <div class="hc-title highlight-red">&#9762; Acute Effects (ARS)</div>
+                                    <p>High dose radiation damaging bone marrow, gastrointestinal tract, and central nervous system.</p>
+                                </div>
+                                <div class="health-card">
+                                    <div class="hc-title highlight-yellow">&#9877; Thyroid Cancer Risk</div>
+                                    <p>Iodine-131 concentrates in the thyroid. Highly treatable if caught early, but caused thousands of pediatric cases.</p>
+                                </div>
+                                <div class="health-card">
+                                    <div class="hc-title highlight-cyan">&#128138; Potassium Iodide (KI)</div>
+                                    <p>A key preventive measure. Blocks radioactive isotope absorption. Crucial for nuclear incident planning.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 10: Environmental Impact -->
+                <section class="slide" id="slide-10">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">10</span> Environmental Impact</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>The Red Forest:</strong> 10 sq km of pine trees absorbed lethal radiation, died, and turned red.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Atmospheric Fallout:</strong> Wind currents carried radioactive isotopes across Europe.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Soil Contamination:</strong> Cesium-137 and Strontium-90 isotopes persist with 30-year half-lives.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Water Management:</strong> Dykes built along the Pripyat River to shield Kyiv's water reservoirs.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Bioaccumulation:</strong> High radiation levels found in forest berries, mushrooms, and local wildlife.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel env-layout">
+                                <div class="env-metric-card">
+                                    <div class="metric-icon highlight-red">&#127794;</div>
+                                    <div class="metric-val">Red Forest</div>
+                                    <div class="metric-lbl">10 km² Pine Forest Dead</div>
+                                </div>
+                                <div class="env-metric-card">
+                                    <div class="metric-icon highlight-yellow">&#127758;</div>
+                                    <div class="metric-val">Cesium-137</div>
+                                    <div class="metric-lbl">30-Year Half-Life in Soil</div>
+                                </div>
+                                <div class="env-metric-card">
+                                    <div class="metric-icon highlight-cyan">&#128167;</div>
+                                    <div class="metric-val">Water Catch</div>
+                                    <div class="metric-lbl">Dnieper River Runoff Safe</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 11: Wildlife After the Disaster -->
+                <section class="slide" id="slide-11">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">11</span> Wildlife After the Disaster</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Acute Mortality:</strong> High radiation caused immediate deaths and reproductive failures.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Unexpected Rebound:</strong> Animal populations grew significantly inside the Exclusion Zone.</li>
+                                    <li style="--bullet-idx: 2;"><strong>Key Species:</strong> Wolves, wild boars, roe deer, and endangered Przewalski's horses flourished.</li>
+                                    <li style="--bullet-idx: 3;"><strong>The Human Factor:</strong> Absence of humans (hunting, farming, cars) outweighed radioactive risks.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Genetic Studies:</strong> Chronic low-dose exposure causes mutations, but populations remain stable.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel">
+                                <div class="comparison-card">
+                                    <div class="comp-header-green">&#127811; ECOLOGICAL PARADOX</div>
+                                    <div class="comp-body">
+                                        <p><strong>Short-term (1986):</strong> Severe cellular damage and high mortality rates in local animal and plant populations.</p>
+                                        <hr class="comp-divider">
+                                        <p><strong>Long-term (Present):</strong> The Exclusion Zone has become one of Europe's largest wildlife sanctuaries. Human absence has proven more beneficial to wildlife than radiation is harmful.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 12: Deaths and Long-Term Impact -->
+                <section class="slide" id="slide-12">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">12</span> Deaths and Long-Term Impact</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Direct Fatalities:</strong> 2 workers killed in the blast; 1 died of coronary thrombosis.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Emergency Crew Deaths:</strong> 28 firefighters and operators died of acute radiation exposure.</li>
+                                    <li style="--bullet-idx: 2;"><strong>WHO Cancer Estimate:</strong> Projects up to 4,000 excess cancer deaths among liquidators and residents.</li>
+                                    <li style="--bullet-idx: 3;"><strong>UNSCEAR Calculation:</strong> Confirms ~60 direct deaths and thyroid cancer cases to date.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Long-term Variance:</strong> Discrepancies exist due to differing low-dose statistical models.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container glass-panel chart-center">
+                                <h3>Comparison of Long-Term Cancer Death Estimates</h3>
+                                <div class="chart-wrapper">
+                                    <div class="chart-bar-group">
+                                        <span class="bar-label">UNSCEAR (Confirmed)</span>
+                                        <div class="bar-container">
+                                            <div class="bar bar-unscear"></div>
+                                            <span class="bar-val">~60</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <span class="bar-label">WHO (Projected)</span>
+                                        <div class="bar-container">
+                                            <div class="bar bar-who"></div>
+                                            <span class="bar-val">~4,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <span class="bar-label">Union of Concerned Scientists</span>
+                                        <div class="bar-container">
+                                            <div class="bar bar-ucs"></div>
+                                            <span class="bar-val">~27,000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-disclaimer">Note: High discrepancies arise due to differing statistical models for low-dose exposure.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 13: Lessons Learned -->
+                <section class="slide" id="slide-13">
+                    <div class="slide-content">
+                        <h2 class="slide-heading"><span class="heading-num">13</span> Lessons Learned for Disaster Management</h2>
+                        <div class="grid-2col">
+                            <div class="bullets-container">
+                                <ul>
+                                    <li style="--bullet-idx: 0;"><strong>Reactor Modification:</strong> RBMK units updated to prevent void surges and increase scram speeds.</li>
+                                    <li style="--bullet-idx: 1;"><strong>Safety Culture:</strong> Standardized emergency drills and prioritize safety over test quotas.</li>
+                                    <li style="--bullet-idx: 2;"><strong>International Oversight:</strong> Expanded the IAEA and created the Association of Nuclear Operators.</li>
+                                    <li style="--bullet-idx: 3;"><strong>Emergency Protocols:</strong> Built regional potassium iodide stockpiles and rapid warnings.</li>
+                                    <li style="--bullet-idx: 4;"><strong>Global Notification:</strong> Signed treaties to quickly alert neighboring nations of transboundary leaks.</li>
+                                </ul>
+                            </div>
+                            <div class="visual-container lessons-grid">
+                                <div class="lesson-card glass-panel">
+                                    <div class="lesson-num">1</div>
+                                    <h4>Engineering Safety</h4>
+                                    <p>Eliminate positive feedback loops in reactor designs.</p>
+                                </div>
+                                <div class="lesson-card glass-panel">
+                                    <div class="lesson-num">2</div>
+                                    <h4>Global Notification</h4>
+                                    <p>Mandatory alerts for cross-border radiation threats.</p>
+                                </div>
+                                <div class="lesson-card glass-panel">
+                                    <div class="lesson-num">3</div>
+                                    <h4>Crisis Planning</h4>
+                                    <p>Pre-stocked iodine and clear evacuation routes.</p>
+                                </div>
+                                <div class="lesson-card glass-panel">
+                                    <div class="lesson-num">4</div>
+                                    <h4>Safety Culture</h4>
+                                    <p>Allow operators to abort tests without fear of reprisal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 14: Conclusion -->
+                <section class="slide" id="slide-14">
+                    <div class="slide-content title-slide-layout">
+                        <div class="title-badge animate-fade-in">&#10004; KEY TAKEAWAY SUMMARY</div>
+                        <h2 class="main-title animate-slide-up">Disaster Management <span class="highlight-yellow">Synthesis</span></h2>
+                        
+                        <div class="grid-3col conclusion-panels">
+                            <div class="concl-card glass-panel">
+                                <div class="c-icon highlight-red">&#9762;</div>
+                                <h4>The Event</h4>
+                                <p>An avoidable industrial accident caused by design flaws and human error, releasing massive radiation.</p>
+                            </div>
+                            <div class="concl-card glass-panel">
+                                <div class="c-icon highlight-yellow">&#128657;</div>
+                                <h4>The Response</h4>
+                                <p>Marked by heroic individual sacrifice, but severely hindered by state secrecy and delayed evacuation.</p>
+                            </div>
+                            <div class="concl-card glass-panel">
+                                <div class="c-icon highlight-cyan">&#127757;</div>
+                                <h4>The Legacy</h4>
+                                <p>Transformed global nuclear regulations and set new standards for emergency response plans.</p>
+                            </div>
+                        </div>
+
+                        <div class="quote-box glass-panel animate-fade-in">
+                            <p class="quote-text">"The true cost of Chernobyl was not just the physical damage, but the price of compromised safety culture and delayed transparency."</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 15: References & Thank You -->
+                <section class="slide" id="slide-15" style="background-image: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.95)), url('images/new_safe_confinement.png');">
+                    <div class="slide-content title-slide-layout">
+                        <h1 class="main-title animate-slide-up">THANK YOU</h1>
+                        <p class="subtitle animate-slide-up">Questions and Discussion</p>
+                        
+                        <div class="references-panel glass-panel animate-fade-in">
+                            <h3>KEY ACADEMIC REFERENCES</h3>
                             <ul>
-                                <li style="--bullet-idx: 0;"><strong>Reactor Modification:</strong> RBMK units updated to prevent void surges and increase scram speeds.</li>
-                                <li style="--bullet-idx: 1;"><strong>Safety Culture:</strong> Standardized emergency drills and prioritize safety over test quotas.</li>
-                                <li style="--bullet-idx: 2;"><strong>International Oversight:</strong> Expanded the IAEA and created the Association of Nuclear Operators.</li>
-                                <li style="--bullet-idx: 3;"><strong>Emergency Protocols:</strong> Built regional potassium iodide stockpiles and rapid warnings.</li>
-                                <li style="--bullet-idx: 4;"><strong>Global Notification:</strong> Signed treaties to quickly alert neighboring nations of transboundary leaks.</li>
+                                <li><strong>International Atomic Energy Agency (IAEA)</strong> - Safety Series No. 75-INSAG-7 (The Chernobyl Accident: Updating INSAG-1)</li>
+                                <li><strong>World Health Organization (WHO)</strong> - Health Effects of the Chernobyl Accident and Special Health Care Programmes (2006 Report)</li>
+                                <li><strong>United Nations Scientific Committee on the Effects of Atomic Radiation (UNSCEAR)</strong> - Sources and Effects of Ionizing Radiation (Chernobyl Annex)</li>
                             </ul>
                         </div>
-                        <div class="visual-container lessons-grid">
-                            <div class="lesson-card glass-panel">
-                                <div class="lesson-num">1</div>
-                                <h4>Engineering Safety</h4>
-                                <p>Eliminate positive feedback loops in reactor designs.</p>
-                            </div>
-                            <div class="lesson-card glass-panel">
-                                <div class="lesson-num">2</div>
-                                <h4>Global Notification</h4>
-                                <p>Mandatory alerts for cross-border radiation threats.</p>
-                            </div>
-                            <div class="lesson-card glass-panel">
-                                <div class="lesson-num">3</div>
-                                <h4>Crisis Planning</h4>
-                                <p>Pre-stocked iodine and clear evacuation routes.</p>
-                            </div>
-                            <div class="lesson-card glass-panel">
-                                <div class="lesson-num">4</div>
-                                <h4>Safety Culture</h4>
-                                <p>Allow operators to abort tests without fear of reprisal.</p>
-                            </div>
-                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Navigation Controls Panel -->
+            <footer id="nav-controls">
+                <button class="nav-btn" id="prev-btn" title="Previous Slide (Left Arrow)">&#9664; PREV</button>
+                <div id="timeline-indicator-wrapper">
+                    <div id="timeline-indicator-track">
+                        <div id="timeline-indicator-active"></div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Slide 14: Conclusion -->
-            <section class="slide" id="slide-14">
-                <div class="slide-content title-slide-layout">
-                    <div class="title-badge animate-fade-in">&#10004; KEY TAKEAWAY SUMMARY</div>
-                    <h2 class="main-title animate-slide-up">Disaster Management <span class="highlight-yellow">Synthesis</span></h2>
-                    
-                    <div class="grid-3col conclusion-panels">
-                        <div class="concl-card glass-panel">
-                            <div class="c-icon highlight-red">&#9762;</div>
-                            <h4>The Event</h4>
-                            <p>An avoidable industrial accident caused by design flaws and human error, releasing massive radiation.</p>
-                        </div>
-                        <div class="concl-card glass-panel">
-                            <div class="c-icon highlight-yellow">&#128657;</div>
-                            <h4>The Response</h4>
-                            <p>Marked by heroic individual sacrifice, but severely hindered by state secrecy and delayed evacuation.</p>
-                        </div>
-                        <div class="concl-card glass-panel">
-                            <div class="c-icon highlight-cyan">&#127757;</div>
-                            <h4>The Legacy</h4>
-                            <p>Transformed global nuclear regulations and set new standards for emergency response plans.</p>
-                        </div>
-                    </div>
-
-                    <div class="quote-box glass-panel animate-fade-in">
-                        <p class="quote-text">"The true cost of Chernobyl was not just the physical damage, but the price of compromised safety culture and delayed transparency."</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 15: References & Thank You -->
-            <section class="slide" id="slide-15" style="background-image: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.95)), url('images/new_safe_confinement.png');">
-                <div class="slide-content title-slide-layout">
-                    <h1 class="main-title animate-slide-up">THANK YOU</h1>
-                    <p class="subtitle animate-slide-up">Questions and Discussion</p>
-                    
-                    <div class="references-panel glass-panel animate-fade-in">
-                        <h3>KEY ACADEMIC REFERENCES</h3>
-                        <ul>
-                            <li><strong>International Atomic Energy Agency (IAEA)</strong> - Safety Series No. 75-INSAG-7 (The Chernobyl Accident: Updating INSAG-1)</li>
-                            <li><strong>World Health Organization (WHO)</strong> - Health Effects of the Chernobyl Accident and Special Health Care Programmes (2006 Report)</li>
-                            <li><strong>United Nations Scientific Committee on the Effects of Atomic Radiation (UNSCEAR)</strong> - Sources and Effects of Ionizing Radiation (Chernobyl Annex)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Navigation Controls Panel -->
-        <footer id="nav-controls">
-            <button class="nav-btn" id="prev-btn" title="Previous Slide (Left Arrow)">&#9664; PREV</button>
-            <div id="timeline-indicator-wrapper">
-                <div id="timeline-indicator-track">
-                    <div id="timeline-indicator-active"></div>
-                </div>
-            </div>
-            <div class="nav-right">
-                <div class="slide-counter-pill"><span id="footer-slide-num">1</span> / 15</div>
                 <button class="nav-btn" id="next-btn" title="Next Slide (Right Arrow/Space)">NEXT &#9654;</button>
-            </div>
-        </footer>
+            </footer>
+
+        </div>
 
     </div>
     

@@ -1,15 +1,83 @@
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
+    const container = document.getElementById("presentation-container");
+    const canvas = document.getElementById("presentation-canvas");
     const slides = Array.from(document.querySelectorAll(".slide"));
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const progressBar = document.getElementById("slide-progress-bar");
     const timelineIndicator = document.getElementById("timeline-indicator-active");
     const headerSlideNumSpan = document.getElementById("current-slide-num");
-    const footerSlideNumSpan = document.getElementById("footer-slide-num");
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
     
     let currentSlideIndex = 0;
     const totalSlides = slides.length;
+
+    // ==========================================================================
+    // Dynamic 16:9 Scaling Math
+    // ==========================================================================
+    function resizeCanvas() {
+        if (!container || !canvas) return;
+        
+        const targetWidth = 1920;
+        const targetHeight = 1080;
+        
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate scaling factor to fit window bounds
+        const scaleX = windowWidth / targetWidth;
+        const scaleY = windowHeight / targetHeight;
+        const scale = Math.min(scaleX, scaleY);
+        
+        // Apply scaling
+        canvas.style.transform = `scale(${scale})`;
+    }
+
+    // Bind resize events
+    window.addEventListener("resize", resizeCanvas);
+    // Trigger initial scale computation
+    resizeCanvas();
+    // Run scale calculation slightly delayed to ensure page measurements are ready
+    setTimeout(resizeCanvas, 50);
+
+    // ==========================================================================
+    // Fullscreen API Actions
+    // ==========================================================================
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            // Request Fullscreen on the outer viewport container
+            container.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", toggleFullscreen);
+    }
+
+    // Monitor fullscreen state switches (handles Esc button as well)
+    document.addEventListener("fullscreenchange", () => {
+        const enterIcon = document.querySelector(".enter-fullscreen");
+        const exitIcon = document.querySelector(".exit-fullscreen");
+        
+        if (document.fullscreenElement) {
+            if (enterIcon) enterIcon.style.display = "none";
+            if (exitIcon) exitIcon.style.display = "block";
+            if (fullscreenBtn) fullscreenBtn.title = "Exit Present (F)";
+        } else {
+            if (enterIcon) enterIcon.style.display = "block";
+            if (exitIcon) exitIcon.style.display = "none";
+            if (fullscreenBtn) fullscreenBtn.title = "Present (F)";
+        }
+        
+        // Re-scale immediately to snap to monitor dimensions
+        resizeCanvas();
+        setTimeout(resizeCanvas, 100);
+    });
 
     // ==========================================================================
     // Slide Navigation Setup
@@ -40,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update counters
         if (headerSlideNumSpan) headerSlideNumSpan.textContent = currentSlideIndex + 1;
-        if (footerSlideNumSpan) footerSlideNumSpan.textContent = currentSlideIndex + 1;
 
         // Update top progress bar (linear width scaling)
         const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
@@ -52,8 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (timelineIndicator) {
             timelineIndicator.style.width = `${progressPercentage}%`;
             
-            // Optionally shift colors along the timeline gradient
-            // Cyan -> Yellow -> Orange -> Red
+            // Shift color along gradient checkpoints
             let color = "var(--accent-cyan)";
             if (progressPercentage > 75) {
                 color = "var(--accent-red)";
@@ -70,8 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
     prevBtn.addEventListener("click", () => goToSlide(currentSlideIndex - 1));
     nextBtn.addEventListener("click", () => goToSlide(currentSlideIndex + 1));
 
-    // Keyboard Navigation
+    // Keyboard Navigation & Hotkeys
     document.addEventListener("keydown", (e) => {
+        // Toggle Fullscreen on 'F' key (avoid if user is typing, though no input is present here)
+        if (e.key === "f" || e.key === "F") {
+            toggleFullscreen();
+            return;
+        }
+
         switch (e.key) {
             case "ArrowRight":
             case "PageDown":
@@ -82,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 goToSlide(currentSlideIndex - 1);
                 break;
             case " ": // Spacebar
-                e.preventDefault(); // Prevent page scrolling
+                e.preventDefault(); // Prevent default viewport scrolling
                 goToSlide(currentSlideIndex + 1);
                 break;
         }
@@ -129,13 +201,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function setSliderPosition(xCoord) {
             const rect = sliderFrame.getBoundingClientRect();
-            let relativeX = xCoord - rect.left;
+            
+            // Factor in current CSS zoom scale on parent canvas
+            const canvasScale = canvas.getBoundingClientRect().width / canvas.offsetWidth;
+            
+            let relativeX = (xCoord - rect.left) / canvasScale;
             
             // Clamp value within bounds
+            const rawWidth = sliderFrame.offsetWidth;
             if (relativeX < 0) relativeX = 0;
-            if (relativeX > rect.width) relativeX = rect.width;
+            if (relativeX > rawWidth) relativeX = rawWidth;
 
-            const percentage = (relativeX / rect.width) * 100;
+            const percentage = (relativeX / rawWidth) * 100;
             sliderBar.style.left = `${percentage}%`;
             sliderImageOverlay.style.width = `${percentage}%`;
         }

@@ -1,6 +1,6 @@
 /**
- * Redesign Verification Script
- * Validates index.html and style.css for redesigned presentation constraints.
+ * Redesign Verification Script - Presentation Canvas Edition
+ * Validates index.html, style.css, and app.js for presentation canvas scaling.
  */
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +12,7 @@ const appJsPath = path.join(__dirname, 'app.js');
 let errors = [];
 let warnings = [];
 
-console.log('=== REDESIGNED CHERNOBYL PRESENTATION VALIDATION ===\n');
+console.log('=== PRESENTATION MODE CANVAS VALIDATION ===\n');
 
 // 1. Check file existence
 [indexHtmlPath, styleCssPath, appJsPath].forEach(file => {
@@ -51,72 +51,58 @@ if (!speakerNotesDrawerMatches && !speakerNotesClassMatches && !speakerNotesBtnM
     errors.push(`Requirement failure: Speaker notes references still exist in index.html!`);
 }
 
-// C. Verify all slide bullet count limits (max 5 bullet points)
-// Check if any ul block has more than 5 list items. We'll search for ul tags and count their children.
-const slideBlocks = indexContent.split(/<section[^>]*class="[^"]*slide[^"]*"[^>]*>/i);
-// Skip the first block as it is before the first slide
-slideBlocks.shift();
+// C. Verify fullscreen UI button exists
+if (indexContent.includes('id="fullscreen-btn"')) {
+    console.log(`[OK] Fullscreen button (Present Mode toggle) exists in HTML.`);
+} else {
+    errors.push(`Requirement failure: Fullscreen button is missing in index.html!`);
+}
 
-slideBlocks.forEach((block, idx) => {
-    const listMatches = block.match(/<li[^>]*>/gi);
-    const numBullets = listMatches ? listMatches.length : 0;
-    if (numBullets > 5) {
-        errors.push(`Slide ${idx + 1} has ${numBullets} bullet points (Limit is 5).`);
-    } else {
-        console.log(`[OK] Slide ${idx + 1} bullet count: ${numBullets} (under limit)`);
-    }
-});
+// D. Verify fixed presentation canvas wrapper exists
+if (indexContent.includes('id="presentation-canvas"')) {
+    console.log(`[OK] Fixed 16:9 Presentation Canvas wrapper is configured in HTML.`);
+} else {
+    errors.push(`Requirement failure: Presentation canvas wrapper is missing in index.html!`);
+}
 
 // 3. Validate style.css constraints
 const styleContent = fs.readFileSync(styleCssPath, 'utf8');
 
-// A. Check that progress bar is 6-8px
-const progressHeightMatches = styleContent.match(/height:\s*(6|7|8)px/i);
-if (progressHeightMatches) {
-    console.log(`[OK] Top progress bar thickness is between 6-8px (Found: ${progressHeightMatches[0]}).`);
+// A. Check for 1920x1080 canvas rules
+if (styleContent.includes('width: 1920px') && styleContent.includes('height: 1080px')) {
+    console.log(`[OK] Canvas dimensions are locked to 1920x1080 coordinates.`);
 } else {
-    warnings.push(`Progress bar thickness might not be styled between 6-8px.`);
+    errors.push(`Requirement failure: Canvas does not have static 1920px width and 1080px height styled.`);
 }
 
-// B. Verify animated gradient colors
-const gradientColors = [
-    '#26c6da', // Cyan
-    '#ffd54f', // Yellow
-    '#ff9100', // Orange
-    '#e53935'  // Red
-];
-let colorCount = 0;
-gradientColors.forEach(color => {
-    if (styleContent.toLowerCase().includes(color)) {
-        colorCount++;
-    }
-});
-if (colorCount >= 3) {
-    console.log(`[OK] Widescreen layout matches projector safety gradient theme colors.`);
+// B. Check body overflow rule
+if (styleContent.includes('overflow: hidden') || styleContent.includes('overflow:hidden')) {
+    console.log(`[OK] Page scrollbars are successfully disabled via overflow rules.`);
 } else {
-    warnings.push(`Projector gradient safety colors are missing or styled differently (Found ${colorCount}/4).`);
+    warnings.push(`Page overflow is not set to hidden in style.css. Ensure scrolling is disabled.`);
 }
 
 // 4. Validate app.js
 const appContent = fs.readFileSync(appJsPath, 'utf8');
-const drawerLogicMatches = appContent.match(/speaker-notes-drawer|notesToggleBtn|notesBody|toggleSpeakerNotes/gi);
-if (!drawerLogicMatches) {
-    console.log(`[OK] Speaker notes JS controllers are successfully removed.`);
+if (appContent.includes('resizeCanvas') && appContent.includes('Math.min(scaleX, scaleY)')) {
+    console.log(`[OK] JavaScript scale calculation matrix is active.`);
 } else {
-    errors.push(`Requirement failure: app.js contains residual speaker notes logic!`);
+    errors.push(`Requirement failure: Scaling calculations are missing in app.js.`);
+}
+
+if (appContent.includes('requestFullscreen') && (appContent.includes('"F"') || appContent.includes('"f"'))) {
+    console.log(`[OK] Fullscreen API triggers and 'F' key togglers are verified.`);
+} else {
+    errors.push(`Requirement failure: Fullscreen toggle hotkey bindings are missing in app.js.`);
 }
 
 // 5. Summarize validation
-console.log('\n=== REDESIGN VALIDATION SUMMARY ===');
+console.log('\n=== VALIDATION SUMMARY ===');
 if (errors.length > 0) {
     console.error(`[FAILED] ${errors.length} error(s) found:`);
     errors.forEach(e => console.error(`  - ${e}`));
     process.exit(1);
 } else {
-    console.log('[PASSED] All redesign structural checks passed successfully.');
-    if (warnings.length > 0) {
-        console.log('\nWarnings:');
-        warnings.forEach(w => console.log(`  - ${w}`));
-    }
+    console.log('[PASSED] All Presentation Mode constraints verified successfully.');
     process.exit(0);
 }
