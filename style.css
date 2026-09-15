@@ -1410,3 +1410,54 @@ strong {
     }
 }
 
+/* ==========================================================================
+   Explosion Transition Effect
+   ========================================================================== */
+#explosion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #ffffff 0%, #ffdf00 20%, #ff8c00 50%, #ff0000 80%, #000000 100%);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+@keyframes explosionAnim {
+    0% {
+        opacity: 0;
+        filter: brightness(1);
+    }
+    10% {
+        opacity: 1;
+        filter: brightness(2);
+    }
+    40% {
+        opacity: 0.9;
+        background: radial-gradient(circle at center, #ff8c00 0%, #ff0000 60%, #000000 100%);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+body.trigger-explosion #explosion-overlay {
+    animation: explosionAnim 0.7s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes screenShake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-10px, 10px) rotate(-1deg); }
+    20% { transform: translate(10px, -10px) rotate(1deg); }
+    30% { transform: translate(-10px, -10px) rotate(-0.5deg); }
+    40% { transform: translate(10px, 10px) rotate(0.5deg); }
+    50% { transform: translate(-5px, 5px) rotate(0deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+body.trigger-explosion #presentation-container {
+    animation: screenShake 0.5s ease-out forwards;
+}

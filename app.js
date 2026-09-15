@@ -87,6 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function goToSlide(index) {
         if (index < 0 || index >= totalSlides) return;
         
+        // Trigger explosion effect
+        document.body.classList.remove("trigger-explosion");
+        void document.body.offsetWidth; // Force reflow to restart animation
+        document.body.classList.add("trigger-explosion");
+        
         // Remove active class from old slide
         slides[currentSlideIndex].classList.remove("active");
         
