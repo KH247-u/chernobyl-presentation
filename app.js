@@ -135,6 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             timelineIndicator.style.backgroundColor = color;
         }
+
+        // Update progress character animation
+        const slideCharacters = ["🚶", "⚡", "🚗", "⚠️", "💥", "🚒", "🚌", "🚁", "🚑", "🌲", "🐺", "💀", "📖", "🏁", "👋"];
+        const progressChar = document.getElementById("progress-character");
+        if (progressChar) {
+            progressChar.textContent = slideCharacters[currentSlideIndex] || "🚶";
+            progressChar.classList.remove("animate-character");
+            void progressChar.offsetWidth; // Force reflow to restart animation
+            progressChar.classList.add("animate-character");
+        }
     }
 
     // Event Listeners for Navigation Controls
