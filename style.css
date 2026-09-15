@@ -1458,6 +1458,6 @@ body.trigger-explosion #explosion-overlay {
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-body.trigger-explosion #presentation-container {
+body.trigger-explosion #slides-wrapper {
     animation: screenShake 0.5s ease-out forwards;
 }
