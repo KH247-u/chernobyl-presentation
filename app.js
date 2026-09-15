@@ -137,10 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Update progress character animation
-        const slideCharacters = ["🚶", "⚡", "🚗", "⚠️", "💥", "🚒", "🚌", "🚁", "🚑", "🌲", "🐺", "💀", "📖", "🏁", "👋"];
+        const allowedEmojis = ["🚒", "🧑‍🚒", "👮", "🚁"];
         const progressChar = document.getElementById("progress-character");
         if (progressChar) {
-            progressChar.textContent = slideCharacters[currentSlideIndex] || "🚶";
+            progressChar.textContent = allowedEmojis[currentSlideIndex % allowedEmojis.length];
             progressChar.classList.remove("animate-character");
             void progressChar.offsetWidth; // Force reflow to restart animation
             progressChar.classList.add("animate-character");
