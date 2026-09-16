@@ -1437,53 +1437,44 @@ strong {
 }
 
 /* ==========================================================================
-   Explosion Transition Effect
+   Radiation Static / Glitch Transition Effect
    ========================================================================== */
-#explosion-overlay {
+#glitch-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle at center, #ffffff 0%, #ffdf00 20%, #ff8c00 50%, #ff0000 80%, #000000 100%);
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
-    mix-blend-mode: screen;
+    mix-blend-mode: difference;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
 }
 
-@keyframes explosionAnim {
-    0% {
-        opacity: 0;
-        filter: brightness(1);
-    }
-    10% {
-        opacity: 1;
-        filter: brightness(2);
-    }
-    40% {
-        opacity: 0.9;
-        background: radial-gradient(circle at center, #ff8c00 0%, #ff0000 60%, #000000 100%);
-    }
-    100% {
-        opacity: 0;
-    }
+@keyframes staticGlitch {
+    0% { opacity: 0; }
+    20% { opacity: 0.8; filter: contrast(150%) invert(0.2) hue-rotate(90deg); }
+    40% { opacity: 1; filter: contrast(250%) invert(0.8) hue-rotate(-90deg); }
+    60% { opacity: 0.6; filter: contrast(120%) invert(0.4) hue-rotate(180deg); }
+    80% { opacity: 0.9; filter: contrast(200%) invert(0.9) hue-rotate(45deg); }
+    100% { opacity: 0; filter: none; }
 }
 
-body.trigger-explosion #explosion-overlay {
-    animation: explosionAnim 0.7s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+body.trigger-glitch #glitch-overlay {
+    animation: staticGlitch 0.45s steps(4) forwards;
 }
 
-@keyframes screenShake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    10% { transform: translate(-10px, 10px) rotate(-1deg); }
-    20% { transform: translate(10px, -10px) rotate(1deg); }
-    30% { transform: translate(-10px, -10px) rotate(-0.5deg); }
-    40% { transform: translate(10px, 10px) rotate(0.5deg); }
-    50% { transform: translate(-5px, 5px) rotate(0deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+@keyframes glitchShake {
+    0% { transform: translate(0, 0) skew(0deg); }
+    10% { transform: translate(-10px, 5px) skew(-3deg); filter: hue-rotate(45deg); }
+    20% { transform: translate(15px, -5px) skew(5deg); }
+    30% { transform: translate(-10px, -10px) skew(-2deg); filter: hue-rotate(-45deg); }
+    40% { transform: translate(10px, 15px) skew(2deg); }
+    50% { transform: translate(-5px, 5px) skew(0deg); filter: none; }
+    100% { transform: translate(0, 0) skew(0deg); }
 }
 
-body.trigger-explosion #slides-wrapper {
-    animation: screenShake 0.5s ease-out forwards;
+body.trigger-glitch #slides-wrapper {
+    animation: glitchShake 0.45s steps(3) forwards;
 }
