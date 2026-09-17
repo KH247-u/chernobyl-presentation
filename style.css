@@ -1478,3 +1478,22 @@ body.trigger-glitch #glitch-overlay {
 body.trigger-glitch #slides-wrapper {
     animation: glitchShake 0.45s steps(3) forwards;
 }
+
+/* ==========================================================================
+   Guide Badge
+   ========================================================================== */
+.guide-badge {
+    position: absolute;
+    bottom: 60px;
+    right: 100px;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    background: rgba(38, 198, 218, 0.08);
+    border: 1px solid rgba(38, 198, 218, 0.3);
+    padding: 12px 24px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
