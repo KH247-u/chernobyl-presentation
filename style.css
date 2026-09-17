@@ -1480,9 +1480,10 @@ body.trigger-glitch #slides-wrapper {
 }
 
 /* ==========================================================================
-   Guide Badge
+   Guide Badge & Presenter Badge
    ========================================================================== */
-.guide-badge {
+.guide-badge,
+.presenter-badge {
     position: absolute;
     bottom: 60px;
     right: 100px;
